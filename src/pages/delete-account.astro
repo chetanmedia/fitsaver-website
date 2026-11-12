@@ -1,0 +1,33 @@
+---
+// Linked from the Google Play data-safety form. Keep this URL.
+import LegalPage from "../components/LegalPage.astro";
+import { SITE } from "../lib/site";
+---
+<LegalPage title={SITE.title} heading="Delete Account" description="How to delete your Fitsaver account and what data is removed when you do.">
+  <p><strong>FitSaver</strong> (“Fitsaver: Workout Organiser”) lets you request deletion of your account and associated data.</p>
+
+  <h2>How to delete your account</h2>
+  <p>While using the Fitsaver app:</p>
+  <ol>
+    <li>Open <strong>FitSaver</strong> on your device</li>
+    <li>Go to the <strong>More</strong> tab</li>
+    <li>Tap <strong>Delete Account</strong></li>
+    <li>Confirm deletion</li>
+  </ol>
+  <p>Your account and data will be removed immediately.</p>
+
+  <h2>Data that is deleted</h2>
+  <p>When your account is deleted, we permanently remove:</p>
+  <ul>
+    <li>Account profile (email, username, Google account link)</li>
+    <li>Workouts and imported workout content</li>
+    <li>Catalog folders and organization data</li>
+    <li>Scheduled workouts and workout history</li>
+    <li>Streak and progress data</li>
+    <li>Push notification tokens</li>
+    <li>Onboarding preferences and app settings tied to your account</li>
+  </ul>
+
+  <h2>Contact us</h2>
+  <p>If you have questions about this Privacy Policy or our privacy practices, please contact us at <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</LegalPage>

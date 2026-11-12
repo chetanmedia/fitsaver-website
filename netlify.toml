@@ -1,0 +1,42 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Friendly aliases for the legacy privacy URL (the misspelled one stays canonical
+# because the App Store and Google Play listings link to it).
+[[redirects]]
+  from = "/privacy"
+  to = "/privay-policy"
+  status = 301
+
+[[redirects]]
+  from = "/privacy-policy"
+  to = "/privay-policy"
+  status = 301
+
+# /blog is built as blog.html next to the blog/ folder; serve it explicitly.
+[[redirects]]
+  from = "/blog"
+  to = "/blog.html"
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"

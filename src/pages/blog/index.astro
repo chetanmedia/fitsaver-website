@@ -1,0 +1,82 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getPosts, readingMinutes } from "../../lib/posts";
+import { SITE, MARKERS, formatDate } from "../../lib/site";
+import { postImg } from "../../lib/media";
+import "../../styles/blog.css";
+
+const posts = await getPosts();
+const [lead, ...rest] = posts;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "Fitsaver Blog",
+  url: `${SITE.url}/blog`,
+  blogPost: posts.slice(0, 20).map((p) => ({
+    "@type": "BlogPosting",
+    headline: p.data.title,
+    url: `${SITE.url}/blog/${encodeURI(p.data.slug)}`,
+    datePublished: p.data.date.toISOString(),
+  })),
+};
+---
+<Base
+  title="Fitsaver Blog: Workout Routines, Splits and Training Plans"
+  description="Practical workout routines, training splits and tips for turning the workout videos you save into a plan you follow. New articles every day."
+  path="/blog"
+  jsonLd={jsonLd}
+  scrubber={false}
+>
+  <section class="wrap blog-head">
+    <h1 class="blog-head__title">The Fitsaver blog</h1>
+    <p class="lede">Routines, splits and training plans you can run today, plus how to turn the workout reels you save into a week you’ll actually train.</p>
+    <label class="search">
+      <span class="sr-only">Search articles</span>
+      <input type="search" placeholder="Search articles" data-search autocomplete="off" />
+    </label>
+  </section>
+
+  {lead && (
+    <section class="wrap">
+      <a class="lead-post" href={`/blog/${lead.data.slug}`} data-post data-title={lead.data.title.toLowerCase()}>
+        <span class="lead-post__img">{lead.data.image && <img src={postImg(lead.data.image, 1600)} alt="" width="1200" height="800" fetchpriority="high" />}</span>
+        <span class="lead-post__copy">
+          <span class="post-tile__date"><i style={`--m:${MARKERS[0]}`}></i>{formatDate(lead.data.date)}, {readingMinutes(lead.body)} min read</span>
+          <span class="lead-post__title">{lead.data.title}</span>
+          <span class="lead-post__desc">{lead.data.description}</span>
+        </span>
+      </a>
+    </section>
+  )}
+
+  <section class="wrap">
+    <h2 class="sr-only">All articles</h2>
+    <div class="post-grid" data-grid>
+      {rest.map((p, i) => (
+        <a class="post-tile" href={`/blog/${p.data.slug}`} data-post data-title={p.data.title.toLowerCase()}>
+          <span class="post-tile__img">{p.data.image && <img src={postImg(p.data.image, 800)} alt="" loading={i < 6 ? "eager" : "lazy"} decoding="async" width="640" height="420" />}</span>
+          <span class="post-tile__date"><i style={`--m:${MARKERS[(i + 1) % 6]}`}></i>{formatDate(p.data.date)}</span>
+          <span class="post-tile__title">{p.data.title}</span>
+        </a>
+      ))}
+    </div>
+    <p class="blog-empty" data-empty hidden>No articles match that search yet.</p>
+  </section>
+
+  <script>
+    const input = document.querySelector<HTMLInputElement>("[data-search]")!;
+    const items = [...document.querySelectorAll<HTMLElement>("[data-post]")];
+    const empty = document.querySelector<HTMLElement>("[data-empty]")!;
+    input.addEventListener("input", () => {
+      const q = input.value.trim().toLowerCase();
+      let shown = 0;
+      items.forEach((el) => {
+        const hit = !q || q.split(/\s+/).every((w) => el.dataset.title!.includes(w));
+        el.hidden = !hit;
+        if (hit) shown++;
+      });
+      empty.hidden = shown > 0;
+    });
+  </script>
+</Base>

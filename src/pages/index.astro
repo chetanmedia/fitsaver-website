@@ -1,0 +1,858 @@
+---
+import Base from "../layouts/Base.astro";
+import Phone from "../components/Phone.astro";
+import Logo from "../components/Logo.astro";
+import { getPosts } from "../lib/posts";
+import { SITE, MARKERS, formatDate } from "../lib/site";
+import { reels, postImg, framerImg } from "../lib/media";
+import { CORE, fmtTime } from "../lib/demo";
+import { storeBadgesHtml } from "../lib/store-badges.mjs";
+import "../styles/home.css";
+
+const posts = (await getPosts()).slice(0, 6);
+
+const coreSrc = framerImg(CORE.file, 1024);
+const segs = CORE.segments;
+const feed = [reels[0], reels[1]]; // two reels scrolled past before the core reel
+const wall = [...reels, ...reels, ...reels];
+
+const faqs = [
+  { q: "Is Fitsaver free to use?", a: "Yes. The free plan lets you import up to 5 workouts and turn them into routines. Premium gives you unlimited imports, advanced scheduling and detailed streak tracking." },
+  { q: "Where can I save workouts from?", a: "Instagram, TikTok, YouTube and Facebook. Tap Share on a workout video and pick Fitsaver, or copy the link and paste it into the app. You can also paste plain workout text or build a routine by hand." },
+  { q: "How does Fitsaver know which exercises are in a video?", a: "It reads the reel, including the exercise names creators put on screen, and turns each one into a step with reps and sets. Every step stays linked to the moment it appears in the video, so you can watch that exact part while you train." },
+  { q: "Does Fitsaver replace a workout or coaching app?", a: "No. Fitsaver organizes the workouts you already find from creators you trust. It turns them into routines you can schedule, follow with timers and track, instead of handing you a generic program." },
+  { q: "Is Fitsaver on Android?", a: "Yes. Fitsaver is on the App Store for iPhone and on Google Play for Android." },
+  { q: "Are my imported workouts private?", a: "Yes. Workouts you import are private to your account and aren’t shared publicly. Fitsaver only reads publicly available content from the links you share, and never asks for your social media passwords." },
+];
+
+const testimonials = [
+  { quote: "I had dozens of workout reels saved but never followed them properly. This turns them into something I can actually complete.", name: "Natasha Jackson" },
+  { quote: "I tried importing a few workouts and it worked better than I expected. I’m traveling a lot and this finally gives structure to workouts I usually forget about.", name: "James Bearman" },
+  { quote: "Fitsaver helps me organize all my workouts in one place. Notes, social videos, week plans, everything.", name: "Matt J" },
+];
+
+const steps = [
+  { t: "Share the reel", b: "On Instagram, TikTok, YouTube or Facebook, tap Share and pick Fitsaver. You can also paste a link, paste workout text, or build a routine by hand." },
+  { t: "Keep scrolling. It imports in the background.", b: "Imports run in a queue, so you can keep watching or close the app. A notification tells you the moment your workout is ready." },
+  { t: "Make it yours", b: "Drag moves into a new order, rename or delete one, and add a move the creator skipped. Open any exercise to log the weight for every set, add a set, and write your own form notes." },
+  { t: "Pick how you’ll train it", b: "Set-based for classic lifting: every set of one move, then the next. Round-based for circuits and HIIT: every move once, then repeat." },
+  { t: "Count every rep", b: "Tap Complete as you go. Forgot the move? Watch video jumps straight to that exercise’s moment in the reel. Try the button on the phone." },
+  { t: "Rest without watching the clock", b: "Rest starts on its own and tells you what’s next. Set the rest time per routine, or skip it when you’re ready." },
+  { t: "Finish, score, keep the streak", b: "Every finished workout earns points, adds to your streak and lands in your history." },
+  { t: "Every import lands in Uncategorized. Two taps and it’s filed.", b: "Tap Organize, select workouts, then Move to. Drop them into a catalog, or create a new one on the spot, like Core workouts or Chest day." },
+  { t: "Find any workout in a second", b: "One search covers every workout and catalog you’ve imported. Type the one word you remember. Go ahead, type in the phone." },
+  { t: "Put it on a day", b: "Add any workout to a day of your week, see what you completed or skipped, and hold a workout to remove it." },
+  { t: "Every workout counts. Literally.", b: "Finished workouts earn points that move you up the global rankings. Your progress page tracks your streak, what you imported and completed this month, and your full history." },
+];
+
+const features = [
+  { t: "Mark exercises on the video", b: "Each exercise is pinned to its spot on the clip with a colored marker. Scrub, tap, and you’re watching the right move." },
+  { t: "Rest time settings", b: "Set rest between sets and between exercises once per routine. Fitsaver runs it every time." },
+  { t: "Sound cues", b: "Optional sounds mark each set and rest, so your eyes can stay off the screen." },
+  { t: "Notes on every routine", b: "Form notes from the video come with the import, and you can add your own." },
+  { t: "Weight logs", b: "Log the weight for each set and see what you lifted last time before you load the bar." },
+  { t: "Discover", b: "See workouts the community just finished, with likes and comments, and borrow the ones you like." },
+];
+
+const leaders = [
+  { n: "liftwithleo", p: 13020 },
+  { n: "squat.queen", p: 4797, you: true },
+  { n: "coreclub_kai", p: 3340 },
+  { n: "repsforjess", p: 2797 },
+  { n: "benchbuddy", p: 2450 },
+  { n: "mobility.mo", p: 2440 },
+  { n: "ironandoats", p: 2210 },
+  { n: "pull.up.pete", p: 1980 },
+];
+
+const days = [
+  { d: "Mon", date: "Nov 9" },
+  { d: "Tue", date: "Nov 10" },
+  { d: "Wed", date: "Nov 11" },
+  { d: "Thu", date: "Nov 12" },
+  { d: "Fri", date: "Nov 13" },
+  { d: "Sat", date: "Nov 14" },
+  { d: "Sun", date: "Nov 15" },
+];
+const planChips = [
+  { id: "core", label: "Core Build Workout", min: 12, m: MARKERS[0] },
+  { id: "full", label: "20 Minutes Full Body", min: 20, m: MARKERS[1] },
+  { id: "mob", label: "Full-body Mobility", min: 30, m: MARKERS[2] },
+  { id: "push", label: "Upper Body + Abs", min: 25, m: MARKERS[3] },
+];
+
+const jsonLd = [
+  { "@context": "https://schema.org", "@type": "Organization", name: "Fitsaver", url: SITE.url, logo: `${SITE.url}/apple-touch-icon.png`, email: SITE.email, sameAs: [SITE.social.instagram, SITE.social.x, SITE.appStore] },
+  { "@context": "https://schema.org", "@type": "WebSite", name: "Fitsaver", url: SITE.url },
+  { "@context": "https://schema.org", "@type": "MobileApplication", name: "Fitsaver: Workout Organizer", operatingSystem: "iOS, Android", applicationCategory: "HealthApplication", description: SITE.description, url: SITE.url, installUrl: SITE.appStore, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } },
+  { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
+];
+
+const segImg = (s: (typeof segs)[number]) => `--pos:${s.pos};--z:${s.zoom}`;
+
+// Uncategorized grid used in the in-phone catalogs demo.
+const ctCards = [
+  { src: coreSrc, style: segImg(segs[0]), name: "Core Build Workout", meta: "5 exercises · ~20 min" },
+  { src: reels[0].src, style: `object-position:${reels[0].pos}`, name: "Upper Body and Abs", meta: "6 exercises · ~25 min" },
+  { src: reels[5].src, style: `object-position:${reels[5].pos}`, name: "Mobility Workout", meta: "9 exercises · ~30 min" },
+  { src: reels[7].src, style: `object-position:${reels[7].pos}`, name: "20 Minutes Full Body", meta: "6 exercises · ~18 min" },
+];
+
+// Demo library for the in-phone search.
+const R = reels;
+const findItems = [
+  { name: "Morning workouts", meta: "9 workouts", tags: "catalog morning mobility", cat: true, src: R[5].src, pos: R[5].pos, src2: R[2].src, pos2: R[2].pos, src3: R[7].src, pos3: R[7].pos },
+  { name: "Core workouts", meta: "2 workouts", tags: "catalog core abs", cat: true, src: coreSrc, pos: segs[0].pos, src2: R[2].src, pos2: R[2].pos, src3: R[3].src, pos3: R[3].pos },
+  { name: "Back workouts", meta: "1 workout", tags: "catalog back pull", cat: true, src: R[8].src, pos: R[8].pos, src2: R[4].src, pos2: R[4].pos, src3: R[1].src, pos3: R[1].pos },
+  { name: "Full body", meta: "6 workouts", tags: "catalog full body strength", cat: true, src: R[1].src, pos: R[1].pos, src2: R[7].src, pos2: R[7].pos, src3: R[0].src, pos3: R[0].pos },
+  { name: "Core Build Workout", meta: "5 exercises · ~12 min", tags: "core abs oblique", src: coreSrc, pos: segs[2].pos, label: "TOTAL CORE" },
+  { name: "15 Minute Abs", meta: "7 exercises · ~34 min", tags: "abs core no weights", src: R[2].src, pos: R[2].pos, label: "15 MIN ABS" },
+  { name: "10-Minute Morning Mobility", meta: "5 exercises · ~21 min", tags: "morning mobility stretch", src: R[5].src, pos: R[5].pos, label: "MORNING" },
+  { name: "5 Minute Morning Mobility", meta: "5 exercises · ~13 min", tags: "morning mobility quick", src: R[7].src, pos: R[7].pos },
+  { name: "Upper Body and Abs", meta: "6 exercises · ~25 min", tags: "upper body abs arms shoulders", src: R[0].src, pos: R[0].pos },
+  { name: "20 Minutes Full Body at Home", meta: "6 exercises · ~18 min", tags: "full body home", src: R[1].src, pos: R[1].pos, label: "20 MINS" },
+  { name: "Full-body Mobility Routine", meta: "8 exercises · ~30 min", tags: "full body mobility stretch", src: R[6].src, pos: R[6].pos },
+  { name: "Chest Day", meta: "5 exercises · ~40 min", tags: "chest push bench", src: R[4].src, pos: R[4].pos },
+];
+---
+<Base title={SITE.title} description={SITE.description} path="/" jsonLd={jsonLd}>
+  <script is:inline>document.body.dataset.duration = "120";</script>
+
+  <!-- ============================================================ HERO -->
+  <section class="hero" data-chapter="Intro" aria-labelledby="hero-title">
+    <div class="hero__feed" aria-hidden="true">
+      {[0, 1].map((col) => (
+        <div class={`feed-col feed-col--${col}`}>
+          {[...reels, ...reels].map((r, i) => (
+            <figure class="feed-card" style={`--pos:${r.pos}`}>
+              <img src={r.src} alt="" loading={i < 4 ? "eager" : "lazy"} decoding="async" width="360" height="640" />
+              <figcaption>{r.caption}</figcaption>
+              <span class="feed-card__save"></span>
+            </figure>
+          ))}
+        </div>
+      ))}
+    </div>
+
+    <div class="wrap hero__inner">
+      <h1 class="hero__title" id="hero-title">
+        <span class="hero__l1" data-split>You saved it.</span>
+        <span class="hero__l2" data-split>Now train it.</span>
+      </h1>
+      <div class="hero__body">
+        <p class="hero__lede">
+          Share any workout reel to Fitsaver. It finds every exercise the creator shows, breaks it into steps with reps,
+          sets and rest timers, and keeps each step linked to its moment in the video.
+        </p>
+        <Fragment set:html={storeBadgesHtml({ campaign: "website" })} />
+        <p class="hero__proof"><b>1,250+</b> people train with Fitsaver in <b>90+</b> countries</p>
+      </div>
+
+      <div class="hero__stage">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <Phone class="hero-phone" label="Sharing an Instagram workout reel to Fitsaver, which turns it into a five-step routine" data-hero-phone>
+          <!-- Feed of reels -->
+          <div class="screen hs-feed is-on" data-hs="feed">
+            <div class="hs-stack" data-hs-stack>
+              {feed.map((r) => (
+                <div class="hs-reel">
+                  <img src={r.src} alt="" style={`object-position:${r.pos}`} width="360" height="640" />
+                  <div class="hs-reel__shade"></div>
+                  <p class="hs-reel__cap hs-reel__cap--cover">{r.caption}</p>
+                  <div class="hs-reel__meta"><b>{r.handle.replace("@", "")}</b><span>save this for later</span></div>
+                </div>
+              ))}
+              <div class="hs-reel hs-reel--core">
+                <div class="hs-reel__media"><img src={coreSrc} alt="" data-hs-core style={segImg(segs[0])} width="360" height="640" /></div>
+                <div class="hs-reel__shade"></div>
+                <p class="hs-reel__cap hs-reel__cap--cover" data-hs-cover>{CORE.cover}</p>
+                <p class="hs-reel__cap" data-hs-cap></p>
+                <div class="hs-reel__meta"><b>{CORE.handle}</b><span>your future abs will thank you</span></div>
+                <div class="hs-reel__bar"><i data-hs-progress></i></div>
+              </div>
+            </div>
+            <div class="hs-chrome"><span class="ic ic-back"></span><span class="ic ic-search"></span></div>
+            <div class="hs-rail">
+              <span><i class="ic ic-heart"></i>63.2K</span>
+              <span><i class="ic ic-chat"></i>329</span>
+              <span><i class="ic ic-loop"></i>1,195</span>
+              <span data-hs-share><i class="ic ic-send"></i>16.4K</span>
+            </div>
+          </div>
+
+          <!-- Instagram "Send to" sheet -->
+          <div class="hs-ig" data-hs="ig">
+            <div class="sheet-grab"></div>
+            <div class="hs-ig__search"><i class="ic ic-search"></i>Search</div>
+            <div class="hs-ig__people">
+              {[["MA", "Maya", "#ff8e3c"], ["JO", "Jordan", "#5b8cff"], ["PR", "Priya", "#ff6bae"], ["SA", "Sam", "#4fe3d1"], ["AL", "Alex", "#a98bff"], ["NO", "Noor", "#e2ff2e"]].map(([i, n, c]) => (
+                <span class="person"><b style={`--c:${c}`}>{i}</b><small>{n}</small></span>
+              ))}
+            </div>
+            <div class="hs-ig__actions">
+              <span><i class="ic ic-story"></i><small>Add to story</small></span>
+              <span><i class="ic ic-link"></i><small>Copy link</small></span>
+              <span class="g"><i class="ic ic-bubble"></i><small>Messages</small></span>
+              <span class="g"><i class="ic ic-phone"></i><small>WhatsApp</small></span>
+              <span data-hs-shareto><i class="ic ic-share"></i><small>Share to…</small></span>
+            </div>
+          </div>
+
+          <!-- iOS share sheet -->
+          <div class="hs-ios" data-hs="ios">
+            <div class="sheet-grab"></div>
+            <div class="hs-ios__head">
+              <span class="hs-ios__safari"><i class="ic ic-compass"></i></span>
+              <div><b>Reel from {CORE.handle}</b><small>instagram.com</small></div>
+            </div>
+            <div class="hs-ios__people">
+              {[["MB", "MacBook Pro", "#7a7a80"], ["MA", "Maya", "#ff8e3c"], ["JO", "Jordan", "#5b8cff"], ["PR", "Priya", "#ff6bae"]].map(([i, n, c]) => (
+                <span class="person"><b style={`--c:${c}`}>{i}</b><small>{n}</small></span>
+              ))}
+            </div>
+            <div class="hs-ios__apps">
+              <span class="tile" style="--c:#2f7bff"><i class="ic ic-airdrop"></i><small>AirDrop</small></span>
+              <span class="tile" style="--c:#34c759"><i class="ic ic-bubble"></i><small>Messages</small></span>
+              <span class="tile" style="--c:#2f7bff"><i class="ic ic-mail"></i><small>Mail</small></span>
+              <span class="tile tile--fs" data-hs-fs><b><Logo size={30} /></b><small>FitSaver</small></span>
+            </div>
+            <div class="hs-ios__acts">
+              <span><i class="ic ic-copy"></i><small>Copy</small></span>
+              <span><i class="ic ic-note"></i><small>Quick Note</small></span>
+              <span><i class="ic ic-compass"></i><small>Open in Chrome</small></span>
+              <span><i class="ic ic-chev"></i><small>View More</small></span>
+            </div>
+          </div>
+
+          <!-- App opening -->
+          <div class="hs-splash" data-hs="splash"><span class="hs-splash__logo"><Logo size={64} /></span></div>
+          <div class="screen hs-launch" data-hs="launch"><span class="hs-launch__word"><span class="mini-mark"><Logo size={14} /></span>FitSaver</span><span class="dots"><i></i><i></i><i></i></span></div>
+
+          <!-- Import queue -->
+          <div class="screen q" data-hs="queue">
+            <p class="app-back">Back</p>
+            <p class="q__title">Import queue</p>
+            <p class="q__sub">You can view the status of importing workouts here</p>
+            <div class="q-card">
+              <div class="q-card__row">
+                <span class="q-card__thumb" data-q-thumb><i class="ic ic-camera"></i><img src={coreSrc} alt="" style={segImg(segs[0])} /></span>
+                <span class="q-card__txt">
+                  <em>Currently processing</em>
+                  <b data-q-name>Instagram · reel/C9xF2kq</b>
+                  <small>instagram.com/reel/C9xF2kq</small>
+                  <small data-q-status>Getting details</small>
+                </span>
+                <span class="q-card__pct" data-q-pct>5%</span>
+              </div>
+              <div class="q-card__bar"><i data-q-bar></i></div>
+              <p class="q-card__note">You can use the app normally or close the app. We’ll notify you once the workout is ready.</p>
+            </div>
+            <p class="q__recent">Recent imported workouts</p>
+            <div class="q-done"><img src={reels[0].src} alt="" style={`object-position:${reels[0].pos}`} /><span><b>Upper Body and Abs Workout</b><small>Completed Nov 12 at 10:28 AM</small></span><i class="ok"></i></div>
+            <div class="q-done"><img src={reels[5].src} alt="" style={`object-position:${reels[5].pos}`} /><span><b>Mobility Workout</b><small>Completed Nov 12 at 7:54 AM</small></span><i class="ok"></i></div>
+          </div>
+
+          <!-- Push notification -->
+          <div class="notif" data-hs="notif">
+            <span class="notif__icon"><Logo size={18} /></span>
+            <span class="notif__txt"><b>Workout Ready!</b><small>{CORE.title} has been processed and is ready to view.</small></span>
+            <span class="notif__time">now</span>
+          </div>
+
+          <!-- Routine -->
+          <div class="screen rt" data-hs="routine">
+            <p class="app-back">Back</p>
+            <p class="rt__title">{CORE.title}</p>
+            <p class="rt__src">From Instagram <b>View Original</b></p>
+            <div class="rt__video"><img src={coreSrc} alt="" style={segImg(segs[0])} /><i class="play"></i></div>
+            <div class="rt__head"><b>Exercises ({segs.length})</b><span>~{CORE.minutes} min</span><em>Rest Time Settings</em></div>
+            <ol class="rt-list">
+              {segs.map((s, i) => (
+                <li data-hs-row>
+                  <span class="n">{i + 1}</span>
+                  <span class="th"><img src={coreSrc} alt="" style={segImg(s)} /><i class="play"></i></span>
+                  <span class="t">{s.name}<small>3 sets</small></span>
+                  <i class="trash"></i>
+                </li>
+              ))}
+            </ol>
+            <div class="app-cta-btn">Start Workout</div>
+          </div>
+
+          <span class="finger" data-finger aria-hidden="true"></span>
+          <div class="hs-fade" data-hs-fade></div>
+        </Phone>
+
+        <div class="hero-chip hero-chip--a" data-chip="a" aria-hidden="true"><span class="dot" style="--m:var(--m2)"></span>Instagram reel, 0:20</div>
+        <div class="hero-chip hero-chip--b" data-chip="b" aria-hidden="true"><span class="spin"></span>Importing in the background</div>
+        <div class="hero-chip hero-chip--c" data-chip="c" aria-hidden="true"><span class="dots">{MARKERS.slice(0, 5).map((m) => <i style={`--m:${m}`}></i>)}</span>5 exercises, each linked to its clip</div>
+      </div>
+    </div>
+    <a class="hero__cue" href="#saved" aria-label="Scroll to the next section"><span></span></a>
+  </section>
+
+  <!-- ============================================================ PROBLEM: THE SAVED FOLDER -->
+  <section class="saved" id="saved" data-chapter="The saved folder" aria-labelledby="saved-title">
+    <div class="saved__wall" aria-hidden="true">
+      {[0, 1, 2].map((row) => (
+        <div class={`saved__row saved__row--${row}`} data-wall-row={row}>
+          {[...wall.slice(row * 3), ...wall.slice(0, row * 3)].map((r) => (
+            <figure class="saved-tile" style={`--pos:${r.pos}`}>
+              <img src={r.src} alt="" loading="lazy" decoding="async" width="200" height="356" />
+              <figcaption>{r.caption}</figcaption>
+              <i class="saved-tile__flag"></i>
+            </figure>
+          ))}
+        </div>
+      ))}
+    </div>
+    <div class="wrap saved__copy">
+      <h2 class="saved__title" id="saved-title">
+        <span class="saved__a">You saved 214 workouts.</span>
+        <span class="saved__b">You’ve done 3 of them.</span>
+      </h2>
+      <p class="lede saved__lede">A reel is great for finding a workout and terrible for doing one. The sets are buried in a caption, the moves flash by in two seconds, and the folder becomes a pile you never open again.</p>
+    </div>
+    <ul class="saved__thoughts" aria-label="Common problems with saved workout reels">
+      <li style="--m:var(--m3)" data-thought>Which one was the glute one?</li>
+      <li style="--m:var(--m2)" data-thought>How many sets was that?</li>
+      <li style="--m:var(--m5)" data-thought>Screenshot. Screenshot. Screenshot.</li>
+      <li style="--m:var(--m4)" data-thought>Pause, rewind, squint at the caption</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ THE BREAKDOWN -->
+  <section class="bd" id="breakdown" data-chapter="The breakdown" aria-labelledby="bd-title">
+    <div class="bd__sticky">
+      <div class="wrap bd__head">
+        <h2 class="h2" id="bd-title">It watches the reel, so you don’t have to.</h2>
+        <p class="lede">Fitsaver reads the exercises the creator puts on screen, turns each one into a step, and remembers the exact second it appears.</p>
+      </div>
+      <div class="wrap bd__stage" data-bd-stage>
+        <div class="bd__left">
+          <div class="bd-reel" data-bd-reel>
+            <img class="bd-reel__img" src={coreSrc} alt="" data-bd-img style={segImg(segs[0])} width="720" height="1280" />
+            <div class="bd-reel__shade"></div>
+            <p class="bd-reel__cover" data-bd-cover>{CORE.cover}</p>
+            <p class="bd-reel__cap" data-bd-cap><span data-bd-captext>{segs[0].cap}</span><i class="bd-scan" data-bd-scan><b></b><b></b><b></b><b></b></i></p>
+            <div class="bd-reel__meta"><b>{CORE.handle}</b><span>10 min total core</span></div>
+            <span class="bd-reel__badge" data-bd-badge>Reading the reel</span>
+          </div>
+          <div class="bd-scrub" aria-hidden="true">
+            <div class="bd-scrub__marks">
+              {segs.map((s, i) => <i data-bd-mark={i} style={`left:${(s.start / CORE.length) * 100 + 2}%;--m:${MARKERS[i]}`}></i>)}
+            </div>
+            <div class="bd-scrub__track"><i data-bd-fill></i><b data-bd-thumb></b></div>
+            <p class="bd-scrub__label"><span data-bd-label>Full video</span><span><span data-bd-time>0:00</span> / {fmtTime(CORE.length)}</span></p>
+          </div>
+        </div>
+        <div class="bd__right">
+          <div class="bd-card">
+            <p class="bd-card__title">{CORE.title}</p>
+            <p class="bd-card__src">From Instagram <b>View Original</b></p>
+            <p class="bd-card__head"><b>Exercises (<span data-bd-count>0</span>)</b><span>~{CORE.minutes} min</span></p>
+            <ol class="bd-list">
+              {segs.map((s, i) => (
+                <li class="bd-row" data-bd-row={i} style={`--m:${MARKERS[i]}`}>
+                  <button type="button" data-bd-btn={i} aria-label={`Watch ${s.name} at ${fmtTime(s.start)}`}>
+                    <span class="n">{i + 1}</span>
+                    <span class="th"><img src={coreSrc} alt="" style={segImg(s)} loading="lazy" /><i class="play"></i></span>
+                    <span class="t">{s.name}<small>{s.reps} reps · 3 sets</small></span>
+                    <span class="ts">{fmtTime(s.start)}</span>
+                  </button>
+                </li>
+              ))}
+            </ol>
+            <p class="bd-hint" data-bd-hint>Tap any exercise to watch its exact moment</p>
+          </div>
+        </div>
+        {segs.map((s, i) => <span class="bd-ghost" data-bd-ghost={i} style={`--m:${MARKERS[i]}`} aria-hidden="true">{s.cap}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ HOW IT WORKS: FLYING PHONE -->
+  <section class="fly" id="how-it-works" data-chapter="How it works" aria-labelledby="fly-title">
+    <div class="fly__sticky">
+      <h2 class="sr-only" id="fly-title">How Fitsaver works</h2>
+      <div class="fly__texts">
+        {steps.slice(0, 7).map((s, i) => (
+          <article class={`fly-step ${i % 2 === 0 ? "fly-step--l" : "fly-step--r"}`} data-fly-step={i}>
+            <span class="fly-step__n" style={`--m:${MARKERS[i % 6]}`}>{i + 1}</span>
+            <h3>{s.t}</h3>
+            <p>{s.b}</p>
+            {i === 0 && (
+              <ul class="fly-sources">{["Instagram", "TikTok", "YouTube", "Facebook", "Paste text", "Build by hand"].map((x, k) => <li style={`--m:${MARKERS[k]}`}>{x}</li>)}</ul>
+            )}
+          </article>
+        ))}
+      </div>
+      <div class="fly__phone" data-fly-phone>
+        <Phone class="fly-phone" label="Fitsaver app screens for each step">
+          <!-- 0: share sheet -->
+          <div class="screen fs-share" data-fs="0">
+            <div class="fs-share__reel"><img src={coreSrc} alt="" style={segImg(segs[2])} /><p class="hs-reel__cap">{segs[2].cap}</p></div>
+            <div class="hs-ios fs-share__sheet">
+              <div class="sheet-grab"></div>
+              <div class="hs-ios__head"><span class="hs-ios__safari"><i class="ic ic-compass"></i></span><div><b>Reel from {CORE.handle}</b><small>instagram.com</small></div></div>
+              <div class="hs-ios__apps">
+                <span class="tile" style="--c:#2f7bff"><i class="ic ic-airdrop"></i><small>AirDrop</small></span>
+                <span class="tile" style="--c:#34c759"><i class="ic ic-bubble"></i><small>Messages</small></span>
+                <span class="tile" style="--c:#2f7bff"><i class="ic ic-mail"></i><small>Mail</small></span>
+                <span class="tile tile--fs" data-fs-tile><b><Logo size={30} /></b><small>FitSaver</small></span>
+              </div>
+              <div class="hs-ios__acts">
+                <span><i class="ic ic-copy"></i><small>Copy</small></span>
+                <span><i class="ic ic-note"></i><small>Quick Note</small></span>
+                <span><i class="ic ic-compass"></i><small>Chrome</small></span>
+                <span><i class="ic ic-chev"></i><small>More</small></span>
+              </div>
+            </div>
+            <span class="finger" data-fs-finger></span>
+          </div>
+
+          <!-- 1: queue + notification -->
+          <div class="screen q fs-queue" data-fs="1">
+            <p class="app-back">Back</p>
+            <p class="q__title">Import queue</p>
+            <p class="q__sub">You can view the status of importing workouts here</p>
+            <div class="q-card">
+              <div class="q-card__row">
+                <span class="q-card__thumb is-img"><img src={coreSrc} alt="" style={segImg(segs[0])} /></span>
+                <span class="q-card__txt"><em>Currently processing</em><b>Imported Workout</b><small>instagram.com/reel/C9xF2kq</small><small data-fq-status>Assessing your workout</small></span>
+                <span class="q-card__pct" data-fq-pct>25%</span>
+              </div>
+              <div class="q-card__bar"><i data-fq-bar style="width:25%"></i></div>
+              <p class="q-card__note">You can use the app normally or close the app. We’ll notify you once the workout is ready.</p>
+            </div>
+            <p class="q__recent">Recent imported workouts</p>
+            <div class="q-done"><img src={reels[0].src} alt="" style={`object-position:${reels[0].pos}`} /><span><b>Upper Body and Abs Workout</b><small>Completed Nov 12 at 10:28 AM</small></span><i class="ok"></i></div>
+            <div class="q-done"><img src={reels[5].src} alt="" style={`object-position:${reels[5].pos}`} /><span><b>Mobility Workout</b><small>Completed Nov 12 at 7:54 AM</small></span><i class="ok"></i></div>
+            <div class="notif" data-fq-notif>
+              <span class="notif__icon"><Logo size={18} /></span>
+              <span class="notif__txt"><b>Workout Ready!</b><small>{CORE.title} has been processed and is ready to view.</small></span>
+              <span class="notif__time">now</span>
+            </div>
+          </div>
+
+          <!-- 2: edit routine: reorder, log weight per set, add a set, exercise guidance -->
+          <div class="screen rt fs-edit" data-fs="2">
+            <div class="rt__head"><b>Exercises (5)</b><span>~12 min</span><em class="lime">Reorder exercise</em></div>
+            <ol class="rt-list rt-list--edit" data-fe-list>
+              {segs.slice(0, 2).map((s, i) => (
+                <li data-fe-row={i}>
+                  <span class="n" data-fe-n>{i + 1}</span>
+                  <span class="th"><img src={coreSrc} alt="" style={segImg(s)} /><i class="play"></i></span>
+                  <span class="t">{s.name}<i class="pen"></i><small>3 sets</small></span>
+                  <i class="trash"></i><i class="chev"></i>
+                </li>
+              ))}
+            </ol>
+            <div class="fe-open">
+              <div class="fe-open__head">
+                <span class="n">3</span>
+                <span class="th"><img src={coreSrc} alt="" style={segImg(segs[3])} /><i class="play"></i></span>
+                <span class="t">{segs[3].name}<i class="pen"></i></span>
+                <i class="trash"></i><i class="chev chev--up"></i>
+              </div>
+              <div class="fe-table" data-fe-table>
+                <span class="h">SET</span><span class="h">LBS</span><span class="h">REPS</span><span class="h"></span>
+                {[1, 2, 3].map((n) => (
+                  <><span>{n}</span><span class="in" data-fe-lbs={n}>lbs</span><span class="in">10</span><i class="x"></i></>
+                ))}
+                <span class="fe-new" data-fe-newrow>4</span><span class="in fe-new" data-fe-lbs="4">lbs</span><span class="in fe-new">10</span><i class="x fe-new"></i>
+              </div>
+              <p class="fe-addset" data-fe-addset>+ Add Set</p>
+              <div class="fe-guide">
+                <p class="fe-guide__t"><i>💡</i>Exercise guidance</p>
+                <p class="fe-guide__in" data-fe-note><span data-fe-notetext></span><i class="caret"></i></p>
+                <div class="fe-guide__clip"><span class="th"><img src={coreSrc} alt="" style={segImg(segs[3])} /><i class="play"></i></span><span><b>Marked from workout video</b><small>Tap thumbnail to preview.</small></span></div>
+              </div>
+            </div>
+            <div class="app-cta-btn">Start Workout</div>
+          </div>
+
+          <!-- 3: choose workout type -->
+          <div class="screen fs-type" data-fs="3">
+            <div class="fs-type__dim"><p class="rt__title">{CORE.title}</p><p class="rt__src">From Instagram <b>View Original</b></p></div>
+            <div class="type-sheet">
+              <div class="sheet-grab"></div>
+              <p class="type-sheet__title">Choose Workout Type</p>
+              <p class="type-sheet__sub">Select how you want to perform this workout</p>
+              <div class="type-opt"><b>Options</b><span class="type-opt__row"><span><b>Sound</b><small>Play sounds for the workout.</small></span><i class="toggle" data-ft-toggle></i></span></div>
+              <div class="type-card" data-ft-card="0"><b>Set-Based Workout</b><small>Complete all sets of one exercise before moving to the next. Traditional lifting style with rest between sets.</small></div>
+              <div class="type-card" data-ft-card="1"><b>Round-Based Workout</b><small>Complete all exercises once, then repeat for the number of rounds. Circuit-style or HIIT training.</small></div>
+              <p class="type-sheet__cancel">Cancel</p>
+            </div>
+          </div>
+
+          <!-- 4: rep counter (interactive) -->
+          <div class="screen tm" data-fs="4">
+            <p class="tm__top"><span class="end">End</span><span data-tm-meta>Set 1/3 · Exercise 1/5</span></p>
+            <div class="tm__progress"><i data-tm-prog></i></div>
+            <p class="tm__name" data-tm-name>{segs[0].name}</p>
+            <p class="tm__reps" data-tm-goal>{segs[0].reps} reps</p>
+            <div class="tm__ring"><span data-tm-count>0</span></div>
+            <div class="tm__video" data-tm-video><i class="ic ic-play"></i>Watch video</div>
+            <div class="tm__btns"><span class="pause"><i class="ic ic-pause"></i>Pause</span><button type="button" class="complete" data-tm-complete>Complete ✓</button></div>
+            <div class="tm__clip" data-tm-clip>
+              <p class="tm__clip-top"><span class="x"></span><b>Full video</b><span class="x"></span></p>
+              <div class="tm__clip-video"><img src={coreSrc} alt="" style={segImg(segs[0])} data-tm-clipimg /><span data-tm-clipcap>{segs[0].cap}</span></div>
+              <div class="tm__clip-marks">{segs.map((s, i) => <i style={`left:${(s.start / CORE.length) * 100 + 2}%;--m:${MARKERS[i]}`}></i>)}</div>
+              <div class="tm__clip-track"><b data-tm-clipthumb></b></div>
+              <p class="tm__clip-label" data-tm-cliplabel>{segs[0].name}</p>
+            </div>
+          </div>
+
+          <!-- 5: rest -->
+          <div class="screen rest" data-fs="5">
+            <p class="tm__top"><span class="end">End</span><span>Set 1/3 · Exercise 2/5</span></p>
+            <div class="tm__progress"><i style="width:22%"></i></div>
+            <div class="rest__body">
+              <p class="rest__title">Rest</p>
+              <p class="rest__next" data-rest-next>Get ready for Set 2 of 3</p>
+              <p class="rest__num" data-rest-num>20</p>
+              <p class="rest__unit">seconds</p>
+              <span class="rest__skip">Skip Rest →</span>
+            </div>
+            <div class="rest__ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" /><circle cx="60" cy="60" r="56" class="fg" data-rest-ring /></svg></div>
+          </div>
+
+          <!-- 6: complete -->
+          <div class="screen done" data-fs="6">
+            <p class="tm__name done__bg">Side Plank Cross Crunch</p>
+            <div class="done__card" data-done-card>
+              <span class="done__party" aria-hidden="true">🎉</span>
+              <b>Workout Complete!</b>
+              <small>Time spent: 12 minutes</small>
+              <span class="done__btn done__btn--ghost">Add photo</span>
+              <span class="done__btn">Done</span>
+            </div>
+            <div class="done__pts" data-done-pts><span>★</span><b data-done-n>4,797</b><small>pts</small></div>
+            <p class="done__note" data-done-note>12 minute workout complete!</p>
+            <div class="confetti" data-confetti>{Array.from({ length: 22 }).map((_, i) => <i style={`--m:${MARKERS[i % 6]};--i:${i}`}></i>)}</div>
+          </div>
+
+        </Phone>
+      </div>
+      <ol class="fly__pips" aria-hidden="true">{steps.slice(0, 7).map((_, i) => <li data-fly-pip={i} style={`--m:${MARKERS[i % 6]}`}></li>)}</ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ CHAPTER: CATALOGS (the phone flies in) -->
+  <section class="chap chap--l chap--catalogs" id="catalogs" data-chap="7" data-fx="drop" aria-labelledby="chap-catalogs-title">
+    <div class="chap__sticky">
+      <div class="chap__bg" aria-hidden="true">
+<div class="fly-bg chap-bg fly-bg--cat" data-follow>
+          {Array.from({ length: 14 }).map((_, i) => {
+            const r = reels[i % reels.length];
+            return <figure class="orb-card" data-orb={i} style={`--pos:${r.pos}`}><img src={r.src} alt="" loading="lazy" /><figcaption>{r.caption}</figcaption></figure>;
+          })}
+          <p class="bg-label bg-label--cat"><span data-bg-catn>678</span> saved</p>
+        </div>
+      </div>
+      <div class="chap__text" data-chap-text>
+        <span class="fly-step__n" style={`--m:${MARKERS[1]}`}>8</span>
+        <h2 class="chap__title" id="chap-catalogs-title">{steps[7].t}</h2>
+        <p>{steps[7].b}</p>
+      </div>
+      <div class="chap__phone" data-chap-phone>
+        <Phone class="chap-phone" label={steps[7].t}>
+          <!-- 7: catalogs: organize, move to, create a catalog -->
+          <div class="screen is-on ct" data-fs="7">
+            <div class="ct-list" data-ct-list>
+              <p class="ct-top"><span class="app-back">Back</span><b data-ct-org>Organize</b></p>
+              <div class="ct-selbar" data-ct-selbar><b data-ct-selcount>1 selected</b><em data-ct-moveto>Move to…</em></div>
+              <p class="ct-title">Uncategorized</p>
+              <p class="ct-sub" data-ct-n>680 Workouts</p>
+              <div class="ct-search"><i class="ic ic-search"></i>Search workouts</div>
+              <div class="ct-grid">
+                {ctCards.map((c, i) => (
+                  <div class="ct-card" data-ct-card={i}>
+                    <span class="ct-card__img"><img src={c.src} alt="" style={c.style} /><i class="ct-check" data-ct-check={i}></i></span>
+                    <b>{c.name}</b><small>{c.meta}</small>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div class="ct-sheet" data-ct-move>
+              <div class="sheet-grab"></div>
+              <p class="ct-sheet__title">Move to Catalog</p>
+              <p class="ct-create" data-ct-create>+ Create New Catalog</p>
+              {[["Back workouts", "1 workout", reels[8]], ["Morning workouts", "9 workouts", reels[5]], ["Full body", "1 workout", reels[1]]].map(([n, m, r]: any) => (
+                <div class="ct-row"><img src={r.src} alt="" style={`object-position:${r.pos}`} /><span><b>{n}</b><small>{m}</small></span></div>
+              ))}
+              <p class="ct-cancel">Cancel</p>
+            </div>
+            <div class="ct-sheet ct-sheet--new" data-ct-new>
+              <div class="sheet-grab"></div>
+              <p class="ct-sheet__title">Create New Catalog</p>
+              <p class="ct-input"><span data-ct-typed></span><i class="caret"></i></p>
+              <div class="ct-btns"><span>Cancel</span><b data-ct-createbtn>Create</b></div>
+            </div>
+            <div class="ct-toast" data-ct-toast><b>Success</b><small>Moved 2 workout(s)</small><span>OK</span></div>
+            <div class="ct-home" data-ct-home>
+              <p class="ct-home__bar"><span class="mini-mark"><Logo size={12} /></span><b>FitSaver</b></p>
+              <p class="ct-home__head"><b>My Catalogs</b><em>Import queue</em></p>
+              <div class="ct-cats">
+                <div class="cat cat--new"><span>+</span><b>New Catalog</b></div>
+                <div class="cat"><span class="cat__img"><img src={reels[5].src} alt="" style={`object-position:${reels[5].pos}`} /><i><img src={reels[1].src} alt="" /><img src={reels[2].src} alt="" /></i></span><b>Uncategorized</b><small data-ct-left>680 workouts</small></div>
+                <div class="cat cat--fresh" data-ct-fresh><span class="cat__img"><img src={coreSrc} alt="" style={segImg(segs[0])} /><i><img src={reels[0].src} alt="" style={`object-position:${reels[0].pos}`} /><img src={reels[2].src} alt="" /></i></span><b>Core workouts</b><small>2 workouts</small></div>
+                <div class="cat"><span class="cat__img"><img src={reels[8].src} alt="" style={`object-position:${reels[8].pos}`} /><i><img src={reels[4].src} alt="" /><img src={reels[6].src} alt="" /></i></span><b>Back workouts</b><small>1 workout</small></div>
+                <div class="cat"><span class="cat__img"><img src={reels[2].src} alt="" style={`object-position:${reels[2].pos}`} /><i><img src={reels[7].src} alt="" /><img src={reels[5].src} alt="" /></i></span><b>Morning workouts</b><small>9 workouts</small></div>
+                <div class="cat"><span class="cat__img"><img src={reels[1].src} alt="" style={`object-position:${reels[1].pos}`} /><i><img src={reels[7].src} alt="" /><img src={reels[0].src} alt="" /></i></span><b>Full body</b><small>6 workouts</small></div>
+              </div>
+            </div>
+            <span class="finger" data-ct-finger></span>
+          </div>
+        </Phone>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ CHAPTER: SEARCH (the phone flies in) -->
+  <section class="chap chap--r chap--search" id="search" data-chap="8" data-fx="spin" aria-labelledby="chap-search-title">
+    <div class="chap__sticky">
+      <div class="chap__bg" aria-hidden="true">
+<div class="fly-bg chap-bg fly-bg--search" data-follow>
+          <p class="bg-word"><span data-bg-word></span><i class="bg-caret"></i></p>
+          {[findItems[0], findItems[6], findItems[7], findItems[0], findItems[6], findItems[7]].map((it, i) => (
+            <figure class="burst-card" data-burst={i}><img src={it.src} alt="" style={`object-position:${it.pos}`} loading="lazy" /><figcaption>{it.name}</figcaption></figure>
+          ))}
+        </div>
+      </div>
+      <div class="chap__text" data-chap-text>
+        <span class="fly-step__n" style={`--m:${MARKERS[2]}`}>9</span>
+        <h2 class="chap__title" id="chap-search-title">{steps[8].t}</h2>
+        <p>{steps[8].b}</p>
+      </div>
+      <div class="chap__phone" data-chap-phone>
+        <Phone class="chap-phone" label={steps[8].t}>
+          <!-- 8: universal search (the input is real: type in it) -->
+          <div class="screen is-on sr" data-fs="8">
+            <p class="ct-home__bar"><span class="mini-mark"><Logo size={12} /></span><b>FitSaver</b><i class="sr-dots"><span></span><span></span></i></p>
+            <label class="sr-search"><span class="sr-only">Search the demo catalogs and workouts</span><input type="search" placeholder="Search catalogs and workouts" autocomplete="off" data-sr-input /></label>
+            <p class="ct-home__head"><b>My Catalogs</b><em data-sr-count>Import queue</em></p>
+            <div class="sr-grid" data-sr-grid>
+              {findItems.map((it) => (
+                <div class="cat sr-item" data-sr-item data-q={`${it.name} ${it.tags}`.toLowerCase()}>
+                  <span class="cat__img"><img src={it.src} alt="" style={`object-position:${it.pos}`} />{it.cat && <i><img src={it.src2} alt="" style={`object-position:${it.pos2}`} /><img src={it.src3} alt="" style={`object-position:${it.pos3}`} /></i>}{it.label && <em>{it.label}</em>}</span>
+                  <b>{it.name}</b><small>{it.meta}</small>
+                </div>
+              ))}
+            </div>
+            <p class="sr-empty" data-sr-empty hidden>No match. Try “core”.</p>
+            <div class="sr-open" data-sr-open>
+              <p class="ct-top"><span class="app-back">Back</span><b>Organize</b></p>
+              <p class="ct-title">Morning workouts</p>
+              <p class="ct-sub">9 Workouts</p>
+              <div class="ct-grid">
+                {[[reels[2], "15 Minute Abs", "7 exercises · ~34 min"], [reels[6], "Core Plank Variations", "7 exercises · ~25 min"], [reels[5], "10-Minute Morning Mobility", "5 exercises · ~21 min"], [reels[7], "5 Minute Morning Mobility", "5 exercises · ~13 min"]].map(([r, n, m]: any) => (
+                  <div class="ct-card"><span class="ct-card__img"><img src={r.src} alt="" style={`object-position:${r.pos}`} /></span><b>{n}</b><small>{m}</small></div>
+                ))}
+              </div>
+            </div>
+            <span class="finger" data-sr-finger></span>
+          </div>
+        </Phone>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ CHAPTER: PROGRAMS (the phone flies in) -->
+  <section class="chap chap--l chap--programs" id="programs" data-chap="9" data-fx="rise" aria-labelledby="chap-programs-title">
+    <div class="chap__sticky">
+      <div class="chap__bg" aria-hidden="true">
+<div class="fly-bg chap-bg fly-bg--plan">
+          <div class="bg-days">
+            {["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"].map((d, i) => (
+              <div class="bg-day" data-bg-day={i}><b>{d}</b><span class="bg-day__slot"></span></div>
+            ))}
+          </div>
+          {[[0, "Core Build", 0], [3, "Full Body", 1], [4, "Mobility", 2], [6, "Upper Body", 3]].map(([day, n, c]) => (
+            <span class="bg-pill" data-bg-pill={day} style={`--m:${MARKERS[c as number]}`}><b>{n}</b></span>
+          ))}
+        </div>
+      </div>
+      <div class="chap__text" data-chap-text>
+        <span class="fly-step__n" style={`--m:${MARKERS[3]}`}>10</span>
+        <h2 class="chap__title" id="chap-programs-title">{steps[9].t}</h2>
+        <p>{steps[9].b}</p>
+      </div>
+      <div class="chap__phone" data-chap-phone>
+        <Phone class="chap-phone" label={steps[9].t}>
+          <!-- 9: programs: add to a day, completed / skipped, hold to remove -->
+          <div class="screen is-on pg" data-fs="9">
+            <p class="pg-title">My Programs</p>
+            <p class="pg-week"><i>‹</i><b>This Week</b><i>›</i></p>
+            <div class="pg-day"><p class="pg-day__h"><b>Wednesday</b><small>Nov 11</small></p><p class="pg-add">+ Add workout to this day</p></div>
+            <div class="pg-day">
+              <p class="pg-day__h"><b>Thursday</b><small>Nov 12</small></p>
+              <div class="pg-w"><img src={reels[5].src} alt="" style={`object-position:${reels[5].pos}`} /><span><em class="pg-tag pg-tag--skip">Skipped</em><b>Morning Stretch Routine</b><small>7 min</small></span></div>
+              <div class="pg-w"><img src={coreSrc} alt="" style={segImg(segs[0])} /><span><em class="pg-tag pg-tag--done">✓ Completed</em><b>Core Build Workout</b><small>12 min</small></span></div>
+              <p class="pg-time"><span>Time completed:</span><b data-pg-time>12 min</b></p>
+            </div>
+            <div class="pg-day" data-pg-fri>
+              <p class="pg-day__h"><b>Friday</b><small>Nov 13</small></p>
+              <div class="pg-w pg-w--new" data-pg-new><img src={reels[1].src} alt="" style={`object-position:${reels[1].pos}`} /><span><b>20 Minutes Full Body At Home</b><small>45 min</small></span><i class="pg-hold">Hold to remove</i><i class="pg-holdbar" data-pg-holdbar></i></div>
+              <p class="pg-add" data-pg-add>+ Add workout to this day</p>
+            </div>
+            <div class="pg-sheet" data-pg-sheet>
+              <div class="sheet-grab"></div>
+              <p class="pg-sheet__h"><span class="app-back">Back</span><b>Uncategorized</b></p>
+              <div class="ct-search"><i class="ic ic-search"></i>Search workouts</div>
+              {[[reels[5], "Mobility Workout"], [reels[1], "20 Minutes Full Body At Home"], [reels[6], "Full-body Mobility Routine"], [reels[3], "Plyometric Routine"]].map(([r, n]: any, i) => (
+                <div class="pg-pick"><img src={r.src} alt="" style={`object-position:${r.pos}`} /><span><b>{n}</b><small>45 min</small></span><i class="pg-plus" data-pg-plus={i}>+</i></div>
+              ))}
+            </div>
+            <span class="finger" data-pg-finger></span>
+          </div>
+        </Phone>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ CHAPTER: PROGRESS (the phone flies in) -->
+  <section class="chap chap--r chap--progress" id="progress" data-chap="10" data-fx="zoom" aria-labelledby="chap-progress-title">
+    <div class="chap__sticky">
+      <div class="chap__bg" aria-hidden="true">
+<div class="fly-bg chap-bg fly-bg--rank" data-follow>
+          <p class="bg-pts"><span data-bg-pts>0</span><small>pts</small></p>
+          <div class="bg-pods"><i class="p2" data-bg-pod="1"><b>2</b></i><i class="p1" data-bg-pod="0"><b>1</b></i><i class="p3" data-bg-pod="2"><b>3</b></i></div>
+          {Array.from({ length: 16 }).map((_, i) => <span class="bg-spark" style={`--m:${MARKERS[i % 6]};--i:${i}`}></span>)}
+        </div>
+      </div>
+      <div class="chap__text" data-chap-text>
+        <span class="fly-step__n" style={`--m:${MARKERS[4]}`}>11</span>
+        <h2 class="chap__title" id="chap-progress-title">{steps[10].t}</h2>
+        <p>{steps[10].b}</p>
+      </div>
+      <div class="chap__phone" data-chap-phone>
+        <Phone class="chap-phone" label={steps[10].t}>
+          <!-- 10: rankings + progress -->
+          <div class="screen is-on rk" data-fs="10">
+            <p class="rk-top"><span class="app-back">Back</span><b>Rankings</b><span></span></p>
+            <div class="rk-tabs"><span class="is-on" data-rk-tab="0">Leaderboard</span><span data-rk-tab="1">Progress</span><i data-rk-pill></i></div>
+            <div class="rk-views" data-rk-views>
+              <div class="rk-lb">
+                <p class="rk-lb__t">Global rankings</p>
+                <p class="rk-lb__s" data-rk-sub>Racing to your rank…</p>
+                <div class="rk-pod">
+                  <div class="rk-p rk-p--2"><span class="av av--you" data-rk-youav>You</span><b data-rk-youpts>★ 4,797</b><i>2</i></div>
+                  <div class="rk-p rk-p--1"><span class="crown">🏆</span><span class="av">LI</span><small>liftwithleo</small><b>★ 13,020</b><i>1</i></div>
+                  <div class="rk-p rk-p--3"><span class="av">CO</span><small>coreclub_kai</small><b>★ 3,340</b><i>3</i></div>
+                </div>
+                <p class="rk-top10"><b>Top 10</b><em>See your position</em></p>
+                <ol class="rk-list" data-rk-list>
+                  {leaders.slice(3, 7).map((l, i) => <li><span class="pos">{i + 4}</span><span class="av">{l.n.slice(0, 2).toUpperCase()}</span><span class="nm">{l.n}</span><b>★ {l.p.toLocaleString("en-US")}</b></li>)}
+                </ol>
+                <div class="rk-you" data-rk-you><span class="pos" data-rk-pos>9</span><span class="av av--you">You</span><span class="nm">You</span><b>★ <span data-rk-pts>1,640</span></b></div>
+              </div>
+              <div class="rk-pr">
+                <div class="rk-streak"><span class="flame flame--app"></span><b data-rk-streak>12</b><em>★ 4,797 pts</em><p>Day Streak</p><small>It’s a great start! Keep up the momentum</small></div>
+                <div class="rk-subtabs"><span class="is-on">Stats</span><span>Achievements</span><span>History</span></div>
+                <div class="rk-stats">
+                  {[["Total Imports", 693, 4], ["Workouts Completed", 76, 9], ["Total Exercises", 427, 41], ["Minutes Completed", 496, 118]].map(([l, t, m]) => (
+                    <><div class="rk-stat"><b data-rk-count={t}>{Number(t).toLocaleString("en-US")}</b><small>{l}</small></div><div class="rk-stat"><b data-rk-count={m}>{m}</b><small>This Month</small></div></>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Phone>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ EVERYTHING ELSE -->
+  <section class="feat" id="features" data-chapter="Features" aria-labelledby="feat-title">
+    <div class="wrap">
+      <div class="feat__head">
+        <h2 class="h2" id="feat-title">Everything else in the app</h2>
+        <p class="lede">The small things that make a saved reel feel like a real training plan.</p>
+      </div>
+      <ul class="feat__list">
+        {features.map((f, i) => (
+          <li class="feat-row" style={`--m:${MARKERS[i % 6]}`}>
+            <span class="feat-row__mark" aria-hidden="true"></span>
+            <h3 class="feat-row__title">{f.t}</h3>
+            <p class="feat-row__body">{f.b}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================ PROOF -->
+  <section class="proof" data-chapter="Community" aria-labelledby="proof-title">
+    <div class="wrap">
+      <h2 class="sr-only" id="proof-title">What people say about Fitsaver</h2>
+      <dl class="proof__stats">
+        <div><dt>Active users</dt><dd><span data-count="1250">1,250</span>+</dd></div>
+        <div><dt>Workouts imported</dt><dd><span data-count="10000">10,000</span>+</dd></div>
+        <div><dt>Countries</dt><dd><span data-count="90">90</span>+</dd></div>
+      </dl>
+      <div class="proof__quotes">
+        {testimonials.map((t, i) => (
+          <figure class="quote" style={`--m:${MARKERS[i + 1]}`}>
+            <blockquote>{t.quote}</blockquote>
+            <figcaption><span class="quote__av" aria-hidden="true">{t.name.split(" ").map((w) => w[0]).join("")}</span>{t.name}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ FAQ -->
+  <section class="faq" id="faq" data-chapter="FAQ" aria-labelledby="faq-title">
+    <div class="wrap faq__grid">
+      <div>
+        <h2 class="h2" id="faq-title">Questions, answered</h2>
+        <p class="lede">Something else on your mind? Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> and we’ll reply within 48 hours.</p>
+      </div>
+      <div class="faq__list">
+        {faqs.map((f, i) => (
+          <details class="faq-item" style={`--m:${MARKERS[i % 6]}`}>
+            <summary><span>{f.q}</span><i aria-hidden="true"></i></summary>
+            <div class="faq-item__a"><p>{f.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ BLOG -->
+  {posts.length > 0 && (
+    <section class="latest" data-chapter="Blog" aria-labelledby="latest-title">
+      <div class="wrap latest__head">
+        <h2 class="h2" id="latest-title">Workouts worth saving</h2>
+        <a class="btn btn--ghost btn--sm" href="/blog">All articles</a>
+      </div>
+      <div class="latest__row" data-drag-scroll>
+        {posts.map((p, i) => (
+          <a class="post-card" href={`/blog/${p.data.slug}`}>
+            <span class="post-card__img">{p.data.image && <img src={postImg(p.data.image, 800)} alt="" loading="lazy" decoding="async" width="640" height="420" />}</span>
+            <span class="post-card__date"><i style={`--m:${MARKERS[i % 6]}`}></i>{formatDate(p.data.date)}</span>
+            <span class="post-card__title">{p.data.title}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- ============================================================ FINAL CTA -->
+  <section class="final" data-chapter="Get the app" aria-labelledby="final-title">
+    <div class="wrap">
+      <h2 class="final__title" id="final-title">Your next workout is already in your saved folder.</h2>
+      <a class="final__start" href={SITE.appStore} target="_blank" rel="noopener" data-track="app_store" data-smart-store data-magnet>
+        <span class="final__start-label">Start Workout</span>
+        <span class="final__start-sub">Get Fitsaver free</span>
+      </a>
+      <div class="final__stores"><Fragment set:html={storeBadgesHtml({ campaign: "website" })} /></div>
+    </div>
+  </section>
+
+  <script>
+    import "../scripts/home";
+  </script>
+</Base>

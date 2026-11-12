@@ -1,0 +1,11 @@
+---
+interface Props { class?: string; style?: string; label?: string; time?: string; light?: boolean; [k: string]: any }
+const { class: className, style, label, time = "9:41", light = false, ...rest } = Astro.props;
+---
+<div class:list={["phone", className]} style={style} role={label ? "img" : undefined} aria-label={label} {...rest}>
+  <div class="phone__screen">
+    <div class="phone__island"></div>
+    <div class="phone__status" style={light ? "color:#fff" : "color:#fff"}><span>{time}</span><i></i></div>
+    <slot />
+  </div>
+</div>

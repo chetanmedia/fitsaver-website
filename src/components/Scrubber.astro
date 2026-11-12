@@ -1,0 +1,12 @@
+---
+// Page progress shown as the app's video scrubber. Markers are built at runtime from
+// every element with [data-chapter] on the page (homepage sections, article H2s).
+---
+<div class="scrubber" data-scrubber aria-hidden="true">
+  <div class="scrubber__markers" data-markers></div>
+  <div class="scrubber__track">
+    <div class="scrubber__fill" data-fill></div>
+    <div class="scrubber__thumb" data-thumb></div>
+  </div>
+  <div class="scrubber__label"><span data-label></span><span data-time></span></div>
+</div>

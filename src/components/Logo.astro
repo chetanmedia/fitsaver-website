@@ -1,0 +1,11 @@
+---
+// The Fitsaver mark redrawn from the app icon: a barbell plate and a split routine grid.
+interface Props { size?: number; class?: string }
+const { size = 24, class: className } = Astro.props;
+---
+<svg class={className} width={size} height={size} viewBox="96 104 320 304" fill="currentColor" aria-hidden="true">
+  <path fill-rule="evenodd" d="M246 130H168a24 24 0 0 0-24 24v202a24 24 0 0 0 24 24h78V130Zm-24 24h-54v202h54V154Z" />
+  <rect x="118" y="243" width="44" height="25" rx="12.5" />
+  <rect x="236" y="243" width="44" height="25" rx="4" />
+  <path fill-rule="evenodd" d="M294 130h74a24 24 0 0 1 24 24v202a24 24 0 0 1-24 24h-74V130Zm24 24v84h50v-84h-50Zm0 136v66h50v-66h-50Z" />
+</svg>

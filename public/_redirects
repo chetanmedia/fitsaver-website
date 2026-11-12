@@ -1,0 +1,4 @@
+# Used by drag-and-drop deploys (Netlify Drop ignores netlify.toml).
+/privacy          /privay-policy  301
+/privacy-policy   /privay-policy  301
+/blog             /blog.html      200!

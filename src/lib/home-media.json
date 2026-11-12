@@ -1,0 +1,14 @@
+{
+  "note": "Homepage reel images. All are licensed photos already used as Fitsaver blog header images (Unsplash, via Framer). sync-framer downloads these too.",
+  "reels": [
+    { "id": "push", "file": "3HBmnkqgCtRQJiDLNMijIMPoGjg.jpg", "pos": "74% 50%", "caption": "upper body + abs", "handle": "@pushday.club", "source": "Instagram", "title": "Upper Body + Abs", "minutes": 11, "exercises": ["Around the world", "Arnold press", "Lateral raise", "Bent-over row", "Dead bug", "Hollow hold"] },
+    { "id": "deadlift", "file": "wbb3HWci62Uehu8qoMmHPeU9qiM.jpg", "pos": "42% 50%", "caption": "full body in 30 min", "handle": "@barbell.basics", "source": "TikTok", "title": "Full Body Strength", "minutes": 30, "exercises": ["Romanian deadlift", "Goblet squat", "Push-up", "Reverse lunge", "Plank row", "Burpee"] },
+    { "id": "core", "file": "vxWvl0KitU1rJoOqU5XA8jMOE0.jpg", "pos": "44% 50%", "caption": "15 min core, no excuses", "handle": "@hangtime.core", "source": "YouTube", "title": "15 Minute Core", "minutes": 15, "exercises": ["Hanging knee raise", "Toe-touch crunch", "Russian twist", "Side plank", "Ab wheel rollout", "Hollow hold"] },
+    { "id": "crunch", "file": "qATJEfvTxpUn9pwSKKD7XjLH0.jpg", "pos": "64% 50%", "caption": "abs at home, no weights", "handle": "@homeabs.daily", "source": "Instagram", "title": "Abs at Home", "minutes": 12, "exercises": ["Crunch", "Toe-touch crunch", "Bicycle crunch"] },
+    { "id": "bench", "file": "AVjhdcihzUPBjmFSQClHZhDdgNE.jpg", "pos": "56% 50%", "caption": "chest day, done right", "handle": "@spotme.fit", "source": "Instagram", "title": "Chest Day", "minutes": 40, "exercises": ["Bench press", "Incline press", "Cable fly"] },
+    { "id": "roll", "file": "579PLudSrphM4WBilUhOOIPI70.jpg", "pos": "56% 50%", "caption": "10 min recovery flow", "handle": "@roll.reset", "source": "TikTok", "title": "Recovery Flow", "minutes": 10, "exercises": ["Upper back roll", "Child's pose", "Cat-cow"] },
+    { "id": "dumbbell", "file": "GAJvHyPL6DIIp9UaBAJjBrXQ2c.jpg", "pos": "58% 50%", "caption": "arms with one dumbbell", "handle": "@onebell.arms", "source": "Facebook", "title": "One Dumbbell Arms", "minutes": 18, "exercises": ["Hammer curl", "Overhead extension", "Concentration curl"] },
+    { "id": "hotel", "file": "3gb4l5KBrQXC47mMIM0I0nSiDIk.jpg", "pos": "82% 50%", "caption": "hotel room workout", "handle": "@carryon.fit", "source": "Instagram", "title": "Hotel Room Workout", "minutes": 20, "exercises": ["Squat", "Push-up", "Glute bridge"] },
+    { "id": "rack", "file": "OU24xgGBAUvWKVh3r3k4BS3nEig.jpg", "pos": "62% 50%", "caption": "my 4 day split", "handle": "@split.science", "source": "YouTube", "title": "4 Day Split", "minutes": 55, "exercises": ["Back squat", "Bench press", "Pull-up"] }
+  ]
+}

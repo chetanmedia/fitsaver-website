@@ -1,0 +1,116 @@
+---
+import Base from "../../layouts/Base.astro";
+import { render } from "astro:content";
+import { getPosts, readingMinutes, extractFaq, related } from "../../lib/posts";
+import { SITE, MARKERS, absoluteUrl, formatDate } from "../../lib/site";
+import { postImg } from "../../lib/media";
+import { storeBadgesHtml } from "../../lib/store-badges.mjs";
+import "../../styles/blog.css";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.data.slug }, props: { post, all: posts } }));
+}
+
+const { post, all } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+const path = `/blog/${d.slug}`;
+const minutes = readingMinutes(post.body);
+const image = postImg(d.image, 1600);
+const faq = extractFaq(post.body);
+const more = related(all, post, 3);
+const pageTitle = `${d.title} | Fitsaver`;
+
+const jsonLd: object[] = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: d.title,
+    description: d.description,
+    datePublished: d.date.toISOString(),
+    dateModified: (d.updated || d.date).toISOString(),
+    mainEntityOfPage: absoluteUrl(path),
+    image: image ? (image.startsWith("http") ? image : SITE.url + image) : undefined,
+    author: { "@type": "Organization", name: "Fitsaver", url: SITE.url },
+    publisher: { "@type": "Organization", name: "Fitsaver", logo: { "@type": "ImageObject", url: `${SITE.url}/apple-touch-icon.png` } },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE.url + "/" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: SITE.url + "/blog" },
+      { "@type": "ListItem", position: 3, name: d.title, item: absoluteUrl(path) },
+    ],
+  },
+];
+if (faq.length) {
+  jsonLd.push({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  });
+}
+---
+<Base
+  title={pageTitle}
+  description={d.description}
+  path={path}
+  image={image || SITE.ogImage}
+  imageAlt={d.imageAlt || d.title}
+  type="article"
+  jsonLd={jsonLd}
+  publishedTime={d.date.toISOString()}
+  modifiedTime={(d.updated || d.date).toISOString()}
+>
+  <script is:inline define:vars={{ s: minutes * 60 }}>document.body.dataset.duration = String(s);</script>
+  <article class="post">
+    <header class="wrap post__head" data-chapter="Intro">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/blog">Blog</a></nav>
+      <h1 class="post__title">{d.title}</h1>
+      <p class="post__meta">
+        <time datetime={d.date.toISOString()}>{formatDate(d.date)}</time>
+        <span aria-hidden="true" class="post__sep"></span>
+        <span>{minutes} min read</span>
+      </p>
+    </header>
+
+    {image && (
+      <figure class="wrap post__hero">
+        <img src={image} alt={d.imageAlt || ""} width="1600" height="1067" fetchpriority="high" decoding="async" />
+      </figure>
+    )}
+
+    <div class="wrap post__layout">
+      <div class="prose post__body">
+        <Content />
+      </div>
+      <aside class="post__aside" aria-label="Get the Fitsaver app">
+        <div class="side-cta">
+          <div class="side-cta__icon" aria-hidden="true">
+            <svg viewBox="96 104 320 304" width="28" height="28" fill="currentColor"><path fill-rule="evenodd" d="M246 130H168a24 24 0 0 0-24 24v202a24 24 0 0 0 24 24h78V130Zm-24 24h-54v202h54V154Z"/><rect x="118" y="243" width="44" height="25" rx="12.5"/><rect x="236" y="243" width="44" height="25" rx="4"/><path fill-rule="evenodd" d="M294 130h74a24 24 0 0 1 24 24v202a24 24 0 0 1-24 24h-74V130Zm24 24v84h50v-84h-50Zm0 136v66h50v-66h-50Z"/></svg>
+          </div>
+          <p class="side-cta__title">Saved a reel of this workout?</p>
+          <p class="side-cta__body">Share it to Fitsaver and train it with sets, reps and rest timers.</p>
+          <Fragment set:html={storeBadgesHtml({ campaign: d.slug, size: "sm" })} />
+        </div>
+      </aside>
+    </div>
+  </article>
+
+  {more.length > 0 && (
+    <section class="wrap more" aria-labelledby="more-title" data-chapter="Keep reading">
+      <h2 class="more__title" id="more-title">Keep reading</h2>
+      <div class="more__grid">
+        {more.map((p, i) => (
+          <a class="post-tile" href={`/blog/${p.data.slug}`}>
+            <span class="post-tile__img">{p.data.image && <img src={postImg(p.data.image, 800)} alt="" loading="lazy" decoding="async" width="640" height="420" />}</span>
+            <span class="post-tile__date"><i style={`--m:${MARKERS[(i + 1) % 6]}`}></i>{formatDate(p.data.date)}</span>
+            <span class="post-tile__title">{p.data.title}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+</Base>

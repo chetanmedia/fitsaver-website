@@ -1,0 +1,9 @@
+---
+// Legacy duplicate of /privay-policy that already existed on the Framer site. Kept so no indexed URL breaks.
+import LegalPage from "../components/LegalPage.astro";
+import { Content } from "../legal/privacy.md";
+import { SITE } from "../lib/site";
+---
+<LegalPage title={SITE.title} heading="Privacy Policy" description="How Fitsaver collects, uses and protects your information when you use the Fitsaver app.">
+  <Content />
+</LegalPage>

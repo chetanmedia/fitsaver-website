@@ -1,0 +1,16 @@
+---
+import Base from "../layouts/Base.astro";
+import "../styles/blog.css";
+---
+<Base title="Page not found | Fitsaver" description="This page doesn’t exist." noindex scrubber={false}>
+  <section class="wrap page nf">
+    <p class="nf__code" aria-hidden="true">404</p>
+    <h1 class="page__title">This workout isn’t in your catalog.</h1>
+    <p class="lede">The page you’re looking for has moved or never existed. Try the blog, or head home.</p>
+    <p class="nf__links"><a class="btn" href="/">Go home</a><a class="btn btn--ghost" href="/blog">Browse the blog</a></p>
+  </section>
+</Base>
+<style>
+  .nf__code { font-size: clamp(6rem, 24vw, 18rem); line-height: 0.8; font-weight: 900; letter-spacing: -0.05em; color: var(--card-2); margin-bottom: 1rem; }
+  .nf__links { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 2rem; }
+</style>
