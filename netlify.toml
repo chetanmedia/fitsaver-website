@@ -24,6 +24,12 @@
   status = 200
   force = true
 
+[[redirects]]
+  from = "/tools"
+  to = "/tools.html"
+  status = 200
+  force = true
+
 [[headers]]
   for = "/_astro/*"
   [headers.values]

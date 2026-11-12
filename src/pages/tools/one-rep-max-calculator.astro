@@ -1,0 +1,295 @@
+---
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../lib/site";
+import { storeBadgesHtml } from "../../lib/store-badges.mjs";
+import { estimate, weightForReps, PERCENTS, roundToLoad, platesPerSide, barSvg, fmt } from "../../lib/orm";
+import "../../styles/blog.css";
+import "../../styles/tools.css";
+
+// First paint: 225 lb for 5 reps. The browser script takes over from here.
+const W = 225, R = 5, UNIT = "lb" as const;
+const est = estimate(W, R);
+const one = Math.round(est.avg);
+const side = platesPerSide(one, UNIT);
+
+const lifts = ["Bench press", "Squat", "Deadlift", "Overhead press", "Other"];
+
+const faq = [
+  { q: "How accurate is a one rep max calculator?", a: "Within about 5% for most people when you enter a set of 2 to 6 reps taken close to failure. Accuracy drops as reps go up: a 12-rep set gives a rougher estimate than a 3-rep set, because endurance starts to matter more than strength. Treat the number as a planning tool, not a promise." },
+  { q: "Which 1RM formula is the best?", a: "No single formula wins for every lift and every person. Epley and Brzycki are the most widely used and agree closely between 2 and 10 reps. This calculator shows seven published formulas and uses their average, which smooths out each one's bias." },
+  { q: "Should I test my real one rep max?", a: "You don't need to. Most training programs only need an estimate, and a true max attempt carries more injury risk, needs a spotter for bench and squat, and costs recovery. If you do test, warm up in 4 to 5 progressively heavier singles and stop when bar speed slows sharply." },
+  { q: "What percentage of my 1RM should I train at?", a: "Roughly 80 to 90% for 3 to 6 reps to build strength, 65 to 80% for 8 to 12 reps to build muscle, and below 65% for endurance or technique work. The percentage chart above turns your number into those working weights." },
+  { q: "Does this work in kilograms?", a: "Yes. Switch to kg and the calculator rounds working weights to 2.5 kg jumps and loads a 20 kg bar with standard kilo plates." },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "One Rep Max Calculator",
+    url: `${SITE.url}/tools/one-rep-max-calculator`,
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    publisher: { "@type": "Organization", name: "Fitsaver", url: SITE.url },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE.url}/` },
+      { "@type": "ListItem", position: 2, name: "Free tools", item: `${SITE.url}/tools` },
+      { "@type": "ListItem", position: 3, name: "One rep max calculator", item: `${SITE.url}/tools/one-rep-max-calculator` },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  },
+];
+---
+<Base
+  title="One Rep Max Calculator (1RM) With Percentage Chart | Fitsaver"
+  description="Free one rep max calculator. Enter any set to estimate your 1RM, see your working weights from 50 to 95%, and get the plates to load. Works in lb and kg."
+  path="/tools/one-rep-max-calculator"
+  jsonLd={jsonLd}
+  scrubber={false}
+>
+  <section class="wrap tool-head">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/tools">Free tools</a><span aria-hidden="true">/</span><span>One rep max calculator</span></nav>
+    <h1>One rep max calculator</h1>
+    <p class="lede">Enter a set you’ve done. Get your estimated max, the weight for every rep range, and exactly which plates go on the bar.</p>
+  </section>
+
+  <section class="wrap orm" data-orm>
+    <form class="orm__in tool-card" onsubmit="return false" aria-label="Your set">
+      <fieldset class="chips">
+        <legend>Lift</legend>
+        {lifts.map((l, i) => (
+          <label class="chip"><input type="radio" name="lift" value={l} checked={i === 0} /><span>{l}</span></label>
+        ))}
+      </fieldset>
+
+      <div class="orm__row">
+        <div class="field">
+          <label for="orm-w">Weight lifted</label>
+          <div class="stepper">
+            <button type="button" data-step="-1" aria-label="Less weight">−</button>
+            <input id="orm-w" name="weight" type="number" inputmode="decimal" min="1" max="2000" step="any" value={W} />
+            <button type="button" data-step="1" aria-label="More weight">+</button>
+          </div>
+        </div>
+        <fieldset class="seg" aria-label="Units">
+          <label><input type="radio" name="unit" value="lb" checked /><span>lb</span></label>
+          <label><input type="radio" name="unit" value="kg" /><span>kg</span></label>
+        </fieldset>
+      </div>
+
+      <div class="field">
+        <label for="orm-r">Reps done <output id="orm-r-out" for="orm-r" data-reps-out>{R}</output></label>
+        <input id="orm-r" class="range" name="reps" type="range" min="1" max="12" step="1" value={R} style={`--fill:${((R - 1) / 11) * 100}%`} />
+        <div class="range__ticks" aria-hidden="true">{Array.from({ length: 12 }, (_, i) => <span>{i + 1}</span>)}</div>
+      </div>
+      <p class="hint" data-hint>Most accurate between 2 and 6 reps taken close to failure.</p>
+    </form>
+
+    <div class="orm__out tool-card tool-card--glow" aria-live="polite">
+      <p class="orm__label">Estimated one rep max, <span data-lift-name>bench press</span></p>
+      <p class="orm__big"><span data-one>{one}</span><small data-unit>lb</small></p>
+      <div class="bar">
+        <svg viewBox="-40 0 680 160" role="img" aria-label="Barbell loaded with the plates for this weight">
+          <rect x="-40" y="74" width="680" height="12" rx="6" class="bar__shaft" />
+          <rect x="182" y="66" width="8" height="28" rx="2" class="bar__collar" />
+          <rect x="410" y="66" width="8" height="28" rx="2" class="bar__collar" />
+          <g data-plates set:html={barSvg(one, UNIT)} />
+        </svg>
+      </div>
+      <p class="bar__caption" data-bar-caption>
+        <span data-bar-total>{fmt(roundToLoad(one, UNIT))} lb</span><span data-bar-mid> on a 45 lb bar. Each side: </span><b data-bar-side>{side.length ? side.join(" + ") : "empty bar"}</b>
+      </p>
+      <details class="formulas">
+        <summary>See all 7 formulas</summary>
+        <ul data-formulas>
+          {est.each.map((f) => <li><span>{f.name}</span><b>{fmt(f.value)}</b></li>)}
+        </ul>
+      </details>
+    </div>
+  </section>
+
+  <section class="wrap orm-tables">
+    <div class="tool-card">
+      <h2>Your training weights</h2>
+      <p class="hint">Tap a row to load it on the bar.</p>
+      <table class="tbl">
+        <thead><tr><th scope="col">% of 1RM</th><th scope="col">Weight</th><th scope="col">Reps</th><th scope="col">Best for</th></tr></thead>
+        <tbody data-pct>
+          {PERCENTS.map((p) => (
+            <tr>
+              <td><button type="button" data-load={p.pct}>{p.pct}%</button></td>
+              <td><b>{fmt(roundToLoad((one * p.pct) / 100, UNIT))}</b></td>
+              <td>{p.reps}</td>
+              <td>{p.use}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <div class="tool-card">
+      <h2>Your rep maxes</h2>
+      <p class="hint">The most weight you could likely lift for each number of reps.</p>
+      <table class="tbl">
+        <thead><tr><th scope="col">Reps</th><th scope="col">Weight</th></tr></thead>
+        <tbody data-rm>
+          {Array.from({ length: 12 }, (_, i) => (
+            <tr><td>{i + 1} {i === 0 ? "rep" : "reps"}</td><td><b>{fmt(roundToLoad(weightForReps(one, i + 1), UNIT))}</b></td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="wrap tool-copy">
+    <div class="prose">
+      <h2>How the calculator works</h2>
+      <p>Your one rep max (1RM) is the heaviest weight you can lift for a single clean rep. Testing it directly is tiring and risky, so coaches estimate it from a heavier set of a few reps. Enter the weight and the reps you managed, and the calculator runs seven published formulas (Epley, Brzycki, Lombardi, Mayhew, O’Conner, Wathan and Lander) and averages them.</p>
+      <p>From that estimate it works backwards: the training weight for every percentage from 50 to 100%, the most you could likely lift for 1 to 12 reps, and the plates to load on each side of a standard bar. Weights are rounded to what you can actually load, 5 lb or 2.5 kg jumps.</p>
+
+      <h2>How to get the most accurate number</h2>
+      <ul>
+        <li><b>Use a heavy set.</b> Sets of 2 to 6 reps give the closest estimates. Above 10 reps the formulas start to disagree.</li>
+        <li><b>Go close to failure.</b> The maths assumes you couldn’t have done another rep. If you stopped with 3 left in the tank, your real max is higher.</li>
+        <li><b>Use clean reps only.</b> Count reps with full range of motion and no bounce. A half-depth squat inflates the number.</li>
+        <li><b>Re-check every 4 to 6 weeks.</b> Your max moves as you train, so your working weights should too.</li>
+      </ul>
+
+      <h2>Using your 1RM in a program</h2>
+      <p>Most strength programs prescribe weights as a percentage of your max. A common split: 80 to 90% for 3 to 6 reps on strength days, 65 to 80% for 8 to 12 reps on muscle-building days, and lighter sets for warm-ups and technique. If you want a routine built around your goal and equipment, try the <a href="/tools/workout-generator">free workout generator</a>, or read the <a href="/blog/workout-split-guide-how-to-pick-the-right-3-4-5-or-6-day-split">guide to picking a workout split</a>.</p>
+    </div>
+
+    <aside class="app-cta">
+      <div>
+        <p class="app-cta__lead">Log every set in Fitsaver</p>
+        <p class="app-cta__title">Track the weight for each set and watch your max climb.</p>
+        <Fragment set:html={storeBadgesHtml({ campaign: "tool-1rm", size: "md" })} />
+      </div>
+    </aside>
+
+    <div class="faq-list">
+      <h2>Frequently asked questions</h2>
+      {faq.map((f) => (
+        <details class="faq-item">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { estimate, weightForReps, PERCENTS, roundToLoad, platesPerSide, plateShape, fmt, BAR, type Unit } from "../../lib/orm";
+
+  const root = document.querySelector<HTMLElement>("[data-orm]")!;
+  const form = root.querySelector("form")!;
+  const wIn = form.querySelector<HTMLInputElement>("#orm-w")!;
+  const rIn = form.querySelector<HTMLInputElement>("#orm-r")!;
+  const $ = <T extends Element = HTMLElement>(s: string) => document.querySelector<T>(s)!;
+  const plateG = $<SVGGElement>("[data-plates]");
+  const KEY = "fitsaver-1rm";
+
+  let unit: Unit = "lb";
+  let current: number[] = Array.from(plateG.querySelectorAll<SVGRectElement>('[data-side="r"]')).map((r) => +r.dataset.v!);
+  let loaded: number | null = null; // percentage loaded on the bar, or null for the 1RM
+  let used = false;
+
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (s) {
+      wIn.value = s.w; rIn.value = s.r;
+      form.querySelector<HTMLInputElement>(`input[name=unit][value=${s.unit}]`)!.checked = true;
+      const lift = form.querySelector<HTMLInputElement>(`input[name=lift][value="${s.lift}"]`);
+      if (lift) lift.checked = true;
+    }
+  } catch {}
+
+  const round1 = (n: number) => (unit === "kg" ? Math.round(n * 2) / 2 : Math.round(n));
+
+  function drawBar(total: number) {
+    const next = platesPerSide(total, unit);
+    let k = 0;
+    while (k < next.length && k < current.length && next[k] === current[k]) k++;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let xr = 408, xl = 192, html = "";
+    next.forEach((v, i) => {
+      const { h, w, color } = plateShape(v, unit);
+      const anim = i >= k && !reduce ? ` class="pl-in" style="animation-delay:${(i - k) * 45}ms"` : "";
+      html += `<rect data-side="r" data-v="${v}"${anim} x="${xr}" y="${80 - h / 2}" width="${w}" height="${h}" rx="3" fill="${color}"/>`;
+      html += `<rect data-side="l" data-v="${v}"${anim.replace("pl-in", "pl-in pl-l")} x="${xl - w}" y="${80 - h / 2}" width="${w}" height="${h}" rx="3" fill="${color}"/>`;
+      xr += w + 2; xl -= w + 2;
+    });
+    plateG.innerHTML = html;
+    current = next;
+    $("[data-bar-total]").textContent = `${fmt(roundToLoad(total, unit))} ${unit}`;
+    $("[data-bar-side]").textContent = next.length ? next.join(" + ") : "empty bar";
+    $("[data-bar-mid]").textContent = ` on a ${BAR[unit]} ${unit} bar${loaded ? ` (${loaded}% of your max)` : ""}. Each side: `;
+  }
+
+  function update() {
+    unit = (form.querySelector<HTMLInputElement>("input[name=unit]:checked")!.value as Unit);
+    const lift = form.querySelector<HTMLInputElement>("input[name=lift]:checked")!.value;
+    const w = parseFloat(wIn.value) || 0;
+    const r = +rIn.value;
+    rIn.style.setProperty("--fill", `${((r - 1) / 11) * 100}%`);
+    $("[data-reps-out]").textContent = String(r);
+    $("[data-hint]").textContent = r === 1
+      ? "One rep is already a max. Enter a heavier set of 2 to 6 reps to estimate it instead."
+      : r > 10 ? "High-rep sets give rougher estimates. A set of 2 to 6 reps is more accurate." : "Most accurate between 2 and 6 reps taken close to failure.";
+
+    const est = estimate(w, r);
+    const one = round1(est.avg);
+    $("[data-one]").textContent = fmt(one);
+    $("[data-unit]").textContent = unit;
+    $("[data-lift-name]").textContent = lift === "Other" ? "your lift" : lift.toLowerCase();
+    $("[data-formulas]").innerHTML = est.each.map((f) => `<li><span>${f.name}</span><b>${fmt(round1(f.value))}</b></li>`).join("");
+    $("[data-pct]").innerHTML = PERCENTS.map((p) => `<tr${loaded === p.pct ? ' class="is-on"' : ""}><td><button type="button" data-load="${p.pct}">${p.pct}%</button></td><td><b>${fmt(roundToLoad((one * p.pct) / 100, unit))}</b></td><td>${p.reps}</td><td>${p.use}</td></tr>`).join("");
+    $("[data-rm]").innerHTML = Array.from({ length: 12 }, (_, i) => `<tr><td>${i + 1} ${i ? "reps" : "rep"}</td><td><b>${fmt(roundToLoad(weightForReps(one, i + 1), unit))}</b></td></tr>`).join("");
+    drawBar(loaded ? (one * loaded) / 100 : one);
+    try { localStorage.setItem(KEY, JSON.stringify({ w: wIn.value, r, unit, lift })); } catch {}
+  }
+
+  function track() {
+    if (used) return;
+    used = true;
+    (window as any).plausible?.("tool_use", { props: { tool: "1rm" } });
+    (window as any).gtag?.("event", "tool_use", { tool: "1rm" });
+  }
+
+  form.addEventListener("input", (e) => {
+    const t = e.target as HTMLInputElement;
+    if (t.name === "unit") {
+      const w = parseFloat(wIn.value) || 0;
+      wIn.value = String(t.value === "kg" ? Math.round(w * 0.45359237 * 2) / 2 : Math.round(w / 0.45359237));
+    }
+    loaded = null;
+    track();
+    update();
+  });
+  form.querySelectorAll<HTMLButtonElement>("[data-step]").forEach((b) =>
+    b.addEventListener("click", () => {
+      const s = unit === "kg" ? 2.5 : 5;
+      wIn.value = String(Math.max(0, (parseFloat(wIn.value) || 0) + +b.dataset.step! * s));
+      loaded = null; track(); update();
+    }),
+  );
+  $("[data-pct]").addEventListener("click", (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-load]");
+    if (!b) return;
+    const pct = +b.dataset.load!;
+    loaded = loaded === pct || pct === 100 ? null : pct;
+    track(); update();
+    if (matchMedia("(max-width: 900px)").matches) $(".bar").scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+
+  update();
+</script>

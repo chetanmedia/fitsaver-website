@@ -1,0 +1,55 @@
+---
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../lib/site";
+import "../../styles/blog.css";
+import "../../styles/tools.css";
+
+const tools = [
+  {
+    href: "/tools/workout-generator",
+    name: "Workout generator",
+    text: "Pick a goal, a focus, your time and your equipment. Get a full routine with sets, reps and rest.",
+    art: "gen",
+  },
+  {
+    href: "/tools/one-rep-max-calculator",
+    name: "One rep max calculator",
+    text: "Estimate your 1RM from any set, get working weights for every rep range, and see which plates to load.",
+    art: "orm",
+  },
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  itemListElement: tools.map((t, i) => ({ "@type": "ListItem", position: i + 1, url: SITE.url + t.href, name: t.name })),
+};
+---
+<Base
+  title="Free Fitness Tools: Workout Generator and 1RM Calculator | Fitsaver"
+  description="Free fitness tools from Fitsaver. Build a workout for your goal and equipment in seconds, or calculate your one rep max and training weights."
+  path="/tools"
+  jsonLd={jsonLd}
+  scrubber={false}
+>
+  <section class="wrap tool-head">
+    <h1>Free fitness tools</h1>
+    <p class="lede">Quick tools for planning your training. No sign-up, nothing to install.</p>
+  </section>
+  <section class="wrap tools-grid">
+    {tools.map((t, i) => (
+      <a class="tool-tile tool-card" href={t.href} style={`--c:${i ? "#4FE3D1" : "#E2FF2E"}`}>
+        <div class={`tool-tile__art tool-tile__art--${t.art}`} aria-hidden="true">
+          {t.art === "gen" ? (
+            <ul>{["Goblet squat", "Dumbbell bench press", "Romanian deadlift", "One-arm row"].map((n) => <li><i></i>{n}</li>)}</ul>
+          ) : (
+            <svg viewBox="0 0 300 120"><rect x="0" y="55" width="300" height="10" rx="5" fill="#3a3a3e"/><rect x="186" y="10" width="14" height="100" rx="3" fill="#E2FF2E"/><rect x="202" y="10" width="14" height="100" rx="3" fill="#E2FF2E"/><rect x="218" y="22" width="11" height="76" rx="3" fill="#FF6BAE"/><rect x="100" y="10" width="14" height="100" rx="3" fill="#E2FF2E"/><rect x="84" y="10" width="14" height="100" rx="3" fill="#E2FF2E"/><rect x="71" y="22" width="11" height="76" rx="3" fill="#FF6BAE"/></svg>
+          )}
+        </div>
+        <h2>{t.name}</h2>
+        <p>{t.text}</p>
+        <span class="tool-tile__go">Open the {t.name.toLowerCase()}</span>
+      </a>
+    ))}
+  </section>
+</Base>

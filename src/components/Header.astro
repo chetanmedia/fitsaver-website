@@ -5,6 +5,7 @@ const path = Astro.url.pathname;
 const links = [
   { href: "/#how-it-works", label: "How it works" },
   { href: "/#features", label: "Features" },
+  { href: "/tools", label: "Free tools" },
   { href: "/blog", label: "Blog" },
   { href: "/#faq", label: "FAQ" },
 ];
@@ -21,7 +22,7 @@ const links = [
     </button>
     <nav class="nav" id="site-nav" aria-label="Main">
       {links.map((l) => (
-        <a href={l.href} aria-current={l.href === "/blog" && path.startsWith("/blog") ? "page" : undefined}>{l.label}</a>
+        <a href={l.href} aria-current={(l.href === "/blog" || l.href === "/tools") && path.startsWith(l.href) ? "page" : undefined}>{l.label}</a>
       ))}
     </nav>
     <a class="btn btn--sm" href={SITE.appStore} target="_blank" rel="noopener" data-track="app_store" data-smart-store>Get the app</a>

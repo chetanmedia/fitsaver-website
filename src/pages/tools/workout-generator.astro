@@ -1,0 +1,268 @@
+---
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../lib/site";
+import { storeBadgesHtml } from "../../lib/store-badges.mjs";
+import { generate, itemsHtml, DEFAULTS, GOALS, FOCUS, EQUIP, TIMES } from "../../lib/generator";
+import "../../styles/blog.css";
+import "../../styles/tools.css";
+
+const plan = generate(DEFAULTS);
+
+const faq = [
+  { q: "Is this workout generator free?", a: "Yes. There's no sign-up and no limit. Generate as many workouts as you like, swap any exercise, and copy or share the routine." },
+  { q: "How does the generator pick exercises?", a: "Each focus has a running order of movement patterns, for example squat, push, hinge, pull for a full-body day. The generator fills those slots with exercises that match your equipment, then sets reps, sets and rest from your goal and fits as many exercises as your time allows." },
+  { q: "How many sets and reps should I do to build muscle?", a: "For most people, 3 to 4 sets of 6 to 12 reps per exercise, finishing each set with 1 to 3 reps left in reserve, with 60 to 90 seconds of rest. That's what the Build muscle goal prescribes." },
+  { q: "Can I do these workouts at home with no equipment?", a: "Yes. Leave every equipment option unticked and you'll only get bodyweight exercises: squats, lunges, push-ups, doorframe rows, planks and similar moves." },
+  { q: "How often should I generate a new workout?", a: "Keep the same routine for 3 to 6 weeks and add weight or reps each session. Changing exercises every day makes it hard to track progress. Use the Shuffle button when you start a new block, or swap single exercises you don't like." },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Free Workout Generator",
+    url: `${SITE.url}/tools/workout-generator`,
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    publisher: { "@type": "Organization", name: "Fitsaver", url: SITE.url },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE.url}/` },
+      { "@type": "ListItem", position: 2, name: "Free tools", item: `${SITE.url}/tools` },
+      { "@type": "ListItem", position: 3, name: "Workout generator", item: `${SITE.url}/tools/workout-generator` },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  },
+];
+---
+<Base
+  title="Free Workout Generator: Build a Routine in Seconds | Fitsaver"
+  description="Free workout generator. Pick your goal, time, focus and equipment, and get a full routine with sets, reps and rest. Home or gym, 10 to 60 minutes."
+  path="/tools/workout-generator"
+  jsonLd={jsonLd}
+  scrubber={false}
+>
+  <section class="wrap tool-head">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/tools">Free tools</a><span aria-hidden="true">/</span><span>Workout generator</span></nav>
+    <h1>Workout generator</h1>
+    <p class="lede">Tell it your goal, your time and what you’ve got. Get a complete routine with sets, reps and rest, ready to train.</p>
+  </section>
+
+  <section class="wrap gen" data-gen>
+    <form class="gen__in tool-card" onsubmit="return false" aria-label="Workout options">
+      <fieldset class="chips">
+        <legend>Goal</legend>
+        {Object.entries(GOALS).map(([id, g]) => (
+          <label class="chip"><input type="radio" name="goal" value={id} checked={id === DEFAULTS.goal} /><span>{g.label}</span></label>
+        ))}
+      </fieldset>
+      <fieldset class="chips">
+        <legend>Focus</legend>
+        {Object.entries(FOCUS).map(([id, label]) => (
+          <label class="chip"><input type="radio" name="focus" value={id} checked={id === DEFAULTS.focus} /><span>{label}</span></label>
+        ))}
+      </fieldset>
+      <fieldset>
+        <legend>Time</legend>
+        <div class="seg seg--wide">
+          {TIMES.map((t) => (
+            <label><input type="radio" name="time" value={t} checked={t === DEFAULTS.time} /><span>{t} min</span></label>
+          ))}
+        </div>
+      </fieldset>
+      <fieldset class="chips">
+        <legend>Equipment <small>bodyweight is always included</small></legend>
+        {EQUIP.map((e) => (
+          <label class="chip chip--check"><input type="checkbox" name="eq" value={e.id} checked={DEFAULTS.eq.includes(e.id)} /><span>{e.label}</span></label>
+        ))}
+      </fieldset>
+    </form>
+
+    <div class="gen__out">
+      <article class="routine-card tool-card tool-card--glow" aria-live="polite">
+        <header class="routine-card__head">
+          <h2 data-title>{plan.title}</h2>
+          <ul class="routine-card__meta">
+            <li><b data-count>{plan.items.length}</b> exercises</li>
+            <li><b data-min>{plan.minutes}</b> min</li>
+            <li data-format>{plan.format === "circuit" ? `Circuit, ${plan.rounds} rounds` : "Straight sets"}</li>
+          </ul>
+          <p class="routine-card__note" data-note>{plan.note}</p>
+        </header>
+        <p class="warm"><span>Warm-up</span> <span data-warm>{plan.warmup}</span></p>
+        <ol class="ex-list" data-list set:html={itemsHtml(plan)} />
+        <p class="warm"><span>Cool-down</span> <span>3 minutes of easy walking and stretching</span></p>
+      </article>
+      <div class="gen__actions">
+        <button class="btn" type="button" data-shuffle>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+          Shuffle exercises
+        </button>
+        <button class="btn btn--ghost" type="button" data-copy>Copy routine</button>
+        <button class="btn btn--ghost" type="button" data-share>Copy link</button>
+        <span class="gen__toast" role="status" data-toast></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap tool-copy">
+    <aside class="app-cta">
+      <div>
+        <p class="app-cta__lead">Train it with Fitsaver</p>
+        <p class="app-cta__title">Save workouts from Instagram and TikTok, then follow them with a rep counter, rest timer and set log.</p>
+        <Fragment set:html={storeBadgesHtml({ campaign: "tool-generator", size: "md" })} />
+      </div>
+    </aside>
+
+    <div class="prose">
+      <h2>How the workout generator builds your routine</h2>
+      <p>Every focus has a running order of movement patterns. A full-body day goes squat, horizontal push, hinge, horizontal pull, lunge, overhead press and so on. Push, pull and leg days, core, glutes and arms each have their own order. The generator fills each slot with an exercise you can do with the equipment you ticked, favoring loaded versions when you have weights.</p>
+      <p>Your goal then sets the dose:</p>
+      <ul>
+        <li><b>Build muscle:</b> 3 to 4 sets of 6 to 12 reps, 60 to 90 seconds rest. The biggest lifts come first.</li>
+        <li><b>Get stronger:</b> 4 sets of 4 to 6 reps on the first two compound lifts with 2.5 minutes rest, then lighter accessory work.</li>
+        <li><b>Burn fat:</b> a timed circuit, 40 seconds on and 20 seconds off, with a conditioning move every fourth exercise.</li>
+        <li><b>Endurance:</b> 2 sets of 15 to 20 reps with short rests.</li>
+      </ul>
+      <p>Finally it adds exercises until your time runs out, counting work, rest and setup, so a 20-minute session really fits in 20 minutes.</p>
+
+      <h2>Make it work for you</h2>
+      <ul>
+        <li><b>Don’t like an exercise?</b> Tap the swap icon next to it for another one that trains the same pattern.</li>
+        <li><b>Repeat it.</b> Run the same routine 2 to 3 times a week for 3 to 6 weeks and add a little weight or a rep each time.</li>
+        <li><b>Pick weights you can control.</b> Finish each set with 1 to 3 good reps left. If you need your max for heavy lifts, use the <a href="/tools/one-rep-max-calculator">one rep max calculator</a>.</li>
+        <li><b>Plan your week.</b> Not sure how to split upper, lower, push and pull days? Read the <a href="/blog/workout-split-guide-how-to-pick-the-right-3-4-5-or-6-day-split">workout split guide</a>.</li>
+      </ul>
+    </div>
+
+    <div class="faq-list">
+      <h2>Frequently asked questions</h2>
+      {faq.map((f) => (
+        <details class="faq-item">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { generate, itemsHtml, alternative, asText, DEFAULTS, type Options, type Plan, type Goal, type Focus, type Eq } from "../../lib/generator";
+
+  const root = document.querySelector<HTMLElement>("[data-gen]")!;
+  const form = root.querySelector("form")!;
+  const $ = <T extends Element = HTMLElement>(s: string) => root.querySelector<T>(s)!;
+  let opts: Options = { ...DEFAULTS };
+  let plan: Plan;
+  let used = false;
+  let toastT = 0;
+
+  // A shared link reproduces the exact workout.
+  const q = new URLSearchParams(location.search);
+  if (q.has("goal")) {
+    opts = {
+      goal: (q.get("goal") as Goal) || DEFAULTS.goal,
+      focus: (q.get("focus") as Focus) || DEFAULTS.focus,
+      time: +(q.get("time") || DEFAULTS.time),
+      eq: (q.get("eq") || "").split(",").filter(Boolean) as Eq[],
+      seed: +(q.get("seed") || DEFAULTS.seed),
+    };
+    const set = (name: string, v: string) => { const el = form.querySelector<HTMLInputElement>(`input[name=${name}][value="${v}"]`); if (el) el.checked = true; };
+    set("goal", opts.goal); set("focus", opts.focus); set("time", String(opts.time));
+    form.querySelectorAll<HTMLInputElement>("input[name=eq]").forEach((c) => (c.checked = opts.eq.includes(c.value as Eq)));
+  }
+
+  function read() {
+    const v = (n: string) => form.querySelector<HTMLInputElement>(`input[name=${n}]:checked`)!.value;
+    opts = {
+      goal: v("goal") as Goal,
+      focus: v("focus") as Focus,
+      time: +v("time"),
+      eq: Array.from(form.querySelectorAll<HTMLInputElement>("input[name=eq]:checked")).map((c) => c.value as Eq),
+      seed: opts.seed,
+    };
+  }
+
+  function render(animate: boolean) {
+    plan = generate(opts);
+    paint(animate);
+  }
+
+  function paint(animate: boolean) {
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    $("[data-title]").textContent = plan.title;
+    $("[data-count]").textContent = String(plan.items.length);
+    $("[data-min]").textContent = String(plan.minutes);
+    $("[data-format]").textContent = plan.format === "circuit" ? `Circuit, ${plan.rounds} rounds` : "Straight sets";
+    $("[data-note]").textContent = plan.note;
+    $("[data-warm]").textContent = plan.warmup;
+    $("[data-list]").innerHTML = itemsHtml(plan, animate && !reduce);
+  }
+
+  function track(action: string) {
+    (window as any).plausible?.("tool_use", { props: { tool: "generator", action } });
+    (window as any).gtag?.("event", "tool_use", { tool: "generator", action });
+  }
+
+  function link() {
+    const p = new URLSearchParams({ goal: opts.goal, focus: opts.focus, time: String(opts.time), eq: opts.eq.join(","), seed: String(opts.seed) });
+    return `${location.origin}${location.pathname}?${p}`;
+  }
+
+  function toast(msg: string) {
+    const t = $("[data-toast]");
+    t.textContent = msg;
+    t.classList.add("is-on");
+    clearTimeout(toastT);
+    toastT = window.setTimeout(() => t.classList.remove("is-on"), 2200);
+  }
+
+  async function copy(text: string, msg: string) {
+    try { await navigator.clipboard.writeText(text); toast(msg); }
+    catch { toast("Copying isn’t allowed here. Select the routine and copy it."); }
+  }
+
+  form.addEventListener("change", () => {
+    read();
+    render(true);
+    history.replaceState(null, "", link());
+    if (!used) { used = true; track("generate"); }
+  });
+
+  $("[data-shuffle]").addEventListener("click", () => {
+    read();
+    opts.seed = Math.floor(Math.random() * 1e9);
+    render(true);
+    history.replaceState(null, "", link());
+    track("shuffle");
+  });
+
+  $("[data-list]").addEventListener("click", (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-swap]");
+    if (!b) return;
+    const i = +b.dataset.swap!;
+    const next = alternative(plan, i, opts, Math.random());
+    if (!next) { toast("No other exercise fits this slot with your equipment."); return; }
+    plan.items[i] = next;
+    $("[data-list]").innerHTML = itemsHtml(plan);
+    const li = $("[data-list]").children[i] as HTMLElement;
+    li.classList.add("ex-swap");
+    li.querySelector("button")?.focus();
+    track("swap");
+  });
+
+  $("[data-copy]").addEventListener("click", () => { copy(asText(plan), "Routine copied"); track("copy"); });
+  $("[data-share]").addEventListener("click", () => { copy(link(), "Link copied. It opens this exact workout."); track("share"); });
+
+  read();
+  render(false);
+</script>

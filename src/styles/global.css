@@ -336,7 +336,7 @@ p, h1, h2, h3, h4, h5, h6, figure, blockquote, ul, ol { margin: 0; }
 }
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.4fr repeat(3, 1fr);
+  grid-template-columns: 1.5fr repeat(4, minmax(0, 1fr));
   gap: 2.5rem;
 }
 .footer-grid h2 { font-size: 0.95rem; font-weight: 600; color: var(--smoke); margin-bottom: 0.9rem; }
