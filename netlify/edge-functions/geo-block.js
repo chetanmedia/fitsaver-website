@@ -1,0 +1,42 @@
+// Blocks visitors from selected countries at Netlify's edge (runs before any page is served).
+// Owner bypass: open any page once with ?access=<KEY> and a 1-year cookie lets that browser through.
+const BLOCKED = new Set(["IN", "PK", "BD", "NP"]); // India, Pakistan, Bangladesh, Nepal
+const KEY = "OhyNKrLtT_hq1bdj";
+const COOKIE = "fs_access";
+// Search engine and AI crawlers always get the real site, whatever country they crawl from,
+// so rankings and indexing are never affected by the block.
+const CRAWLERS = /googlebot|google favicon|google-inspectiontool|googleother|storebot-google|adsbot-google|mediapartners-google|bingbot|bingpreview|duckduckbot|applebot|yandex|baiduspider|gptbot|oai-searchbot|chatgpt-user|claudebot|claude-searchbot|claude-user|perplexitybot|perplexity-user/i;
+
+const PAGE = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><title>Not available in your region</title>
+<style>html,body{height:100%;margin:0}body{display:grid;place-items:center;background:#000;color:#f4f4ef;font:17px/1.5 Poppins,system-ui,-apple-system,sans-serif;text-align:center;padding:24px}
+h1{font-size:26px;margin:0 0 8px;letter-spacing:-0.02em}p{color:#9a9a9f;margin:0}i{display:block;width:14px;height:14px;margin:0 auto 22px;border-radius:50%;background:#e2ff2e}</style></head>
+<body><div><i></i><h1>Fitsaver isn't available in your region</h1><p>Sorry, this website can't be viewed from your country.</p></div></body></html>`;
+
+export default async (request, context) => {
+  const country = context.geo?.country?.code;
+  if (!country || !BLOCKED.has(country)) return; // everyone else: serve the site as normal
+  if (CRAWLERS.test(request.headers.get("user-agent") || "")) return;
+
+  const url = new URL(request.url);
+  if (url.searchParams.get("access") === KEY) {
+    url.searchParams.delete("access");
+    return new Response(null, {
+      status: 302,
+      headers: {
+        location: url.pathname + url.search,
+        "set-cookie": `${COOKIE}=${KEY}; Path=/; Max-Age=31536000; Secure; HttpOnly; SameSite=Lax`,
+        "cache-control": "no-store",
+      },
+    });
+  }
+  if ((request.headers.get("cookie") || "").includes(`${COOKIE}=${KEY}`)) return;
+
+  return new Response(PAGE, { status: 403, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } });
+};
+
+// Only pages need checking; skipping static files keeps edge-function usage low.
+export const config = {
+  path: "/*",
+  excludedPath: ["/_astro/*", "/images/*", "/og/*", "/*.png", "/*.jpg", "/*.webp", "/*.svg", "/*.xml", "/*.txt", "/*.ico", "/*.webmanifest", "/*.woff2"],
+};
