@@ -1,6 +1,6 @@
 // Blocks visitors from selected countries at Netlify's edge (runs before any page is served).
 // Owner bypass: open any page once with ?access=<KEY> and a 1-year cookie lets that browser through.
-const BLOCKED = new Set(["IN", "PK", "BD", "NP"]); // India, Pakistan, Bangladesh, Nepal
+const BLOCKED = new Set(["IN", "PK", "BD", "NP", "TR"]); // India, Pakistan, Bangladesh, Nepal, Turkey
 const KEY = "OhyNKrLtT_hq1bdj";
 const COOKIE = "fs_access";
 // Search engine and AI crawlers always get the real site, whatever country they crawl from,
