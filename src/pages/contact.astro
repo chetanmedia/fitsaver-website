@@ -11,8 +11,6 @@ import "../styles/blog.css";
         <p class="lede">Reach out and we’ll get back to you within 48 hours.</p>
         <ul class="contact__ways">
           <li><span>Email</span><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
-          <li><span>Instagram</span><a href={SITE.social.instagram} target="_blank" rel="noopener">@fitsaver.app</a></li>
-          <li><span>Account</span><a href="/delete-account">Delete your account</a></li>
         </ul>
       </div>
       <!-- Netlify Forms: submissions appear in Netlify under Forms > contact. -->
@@ -23,12 +21,41 @@ import "../styles/blog.css";
         <label><span>Email</span><input name="email" type="email" autocomplete="email" required /></label>
         <label><span>Message</span><textarea name="message" rows="6" required></textarea></label>
         <button class="btn" type="submit">Send message</button>
+        <p class="contact__error" role="alert" hidden>Your message didn’t send. Please try again, or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
       </form>
     </div>
   </section>
 </Base>
 
+<script>
+  // Send through Netlify Forms in the background, then show the thank-you page.
+  // Without JavaScript the form still posts normally.
+  const form = document.querySelector<HTMLFormElement>(".contact__form")!;
+  const btn = form.querySelector<HTMLButtonElement>("button[type=submit]")!;
+  const err = form.querySelector<HTMLElement>(".contact__error")!;
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    err.hidden = true;
+    btn.disabled = true;
+    btn.textContent = "Sending…";
+    try {
+      const body = new URLSearchParams(new FormData(form) as any).toString();
+      const res = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body });
+      if (!res.ok) throw new Error(String(res.status));
+      (window as any).plausible?.("contact_sent");
+      (window as any).gtag?.("event", "contact_sent");
+      location.href = "/contact-sent";
+    } catch {
+      err.hidden = false;
+      btn.disabled = false;
+      btn.textContent = "Send message";
+    }
+  });
+</script>
+
 <style>
+  .contact__error { margin: 0; color: #ff8e8e; font-size: 0.92rem; }
+  .contact__error a { color: var(--chalk); }
   .contact__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 6rem); align-items: start; }
   .contact__ways { list-style: none; padding: 0; margin-top: 2.5rem; border-top: 1px solid var(--line); }
   .contact__ways li { display: flex; justify-content: space-between; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
