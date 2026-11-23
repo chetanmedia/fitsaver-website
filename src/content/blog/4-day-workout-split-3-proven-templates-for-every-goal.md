@@ -1,13 +1,13 @@
 ---
-title: "4 Day Workout Split: 3 Proven Templates for Every Goal"
+title: "4 Day Workout Split: 3 Best 4 Day Split Routines by Goal"
 slug: "4-day-workout-split-3-proven-templates-for-every-goal"
 date: "2026-11-06T00:00:00.000Z"
-description: "A 4 day workout split is the sweet spot for most people who lift: enough sessions to train every muscle twice a week, and enough rest days to recover and…"
+description: "The best 4 day workout split for strength, muscle or general fitness, with a weekly schedule and routine cards for each day. Pick one and start this week."
 image: "https://framerusercontent.com/images/OU24xgGBAUvWKVh3r3k4BS3nEig.jpg"
 imageAlt: "4 Day Workout Split: 3 Proven Templates for Every Goal"
-source: "framer"
+source: "site"
 ---
-A **4 day workout split** is the sweet spot for most people who lift: enough sessions to train every muscle twice a week, and enough rest days to recover and keep a life outside the gym. The hard part is not finding a split. It’s picking one that fits your goal and then following it for more than two weeks. Below are three proven templates, one for strength, one for muscle size and one for general fitness, each with a day-by-day routine card you can copy.
+A **4 day workout split** means lifting four days a week, with each session focused on different muscles or a different workout, so every major muscle gets trained about twice a week and you still get three rest days. It’s the sweet spot for most people who lift: enough sessions to train every muscle twice a week, and enough rest days to recover and keep a life outside the gym. The hard part is not finding a split. It’s picking one that fits your goal and then following it for more than two weeks. Below are three proven templates, one for strength, one for muscle size and one for general fitness, each with a day-by-day routine card you can copy.
 
 ## Why a 4 day workout split works for most lifters
 
@@ -23,6 +23,18 @@ Four training days give you room to hit each major muscle group about twice a we
 ### How to choose the best 4 day workout split for you
 
 Start with your main goal, then check your schedule. If you want to get stronger on the big lifts, pick the upper/lower template. If you mainly want bigger muscles and enjoy longer, focused sessions, pick the body-part template. If you want to feel fitter, move better and keep training simple, pick the full body A/B template. Not sure how a 4-day plan compares with 3, 5 or 6 days? Our [workout split guide](/blog/workout-split-guide-how-to-pick-the-right-3-4-5-or-6-day-split) walks through every option.
+
+## 4 day split at a glance: which template fits you?
+
+All three templates use the same week: train Monday and Tuesday, rest Wednesday, train Thursday and Friday, and rest over the weekend. What changes is how the muscles are grouped.
+
+| Template | Monday | Tuesday | Thursday | Friday | Best for |
+| --- | --- | --- | --- | --- | --- |
+| Upper/lower | Upper A (heavy) | Lower A (heavy) | Upper B (volume) | Lower B (volume) | Getting stronger on the big lifts |
+| Body-part | Chest and triceps | Back and biceps | Legs and core | Shoulders and arms | Muscle size, longer focused sessions |
+| Full body A/B | Full body A | Full body B | Full body A | Full body B | General fitness, simpler sessions |
+
+If you can’t decide, start with upper/lower. It’s the most common 4 day split for a reason: it trains everything twice a week, keeps sessions to a reasonable length and is easy to progress.
 
 ## Template 1: Upper/lower 4 day split for strength
 
@@ -127,6 +139,16 @@ This template trains your whole body every session, alternating two workouts: A,
 
 ![Close-up of hands pressing two hex dumbbells overhead during a shoulder press](https://framerusercontent.com/images/vhk19faKQvvZcVFJGuOSrl88QyA.jpg)
 
+## Can you move the training days around?
+
+Yes. The Monday, Tuesday, Thursday, Friday pattern is popular because it puts a rest day in the middle of the week, but any four days work if you follow two rules: never run two hard lower-body days back to back, and get at least one full rest day between each pair of sessions when you can.
+
+- **Weekend lifters:** Saturday, Sunday, Tuesday, Thursday.
+- **Shift workers:** any two pairs of back-to-back days with a rest day between the pairs.
+- **4 days on, 1 day off:** possible with the full body A/B template if sessions stay moderate, but most people recover better with two or three rest days spread across the week.
+
+Missed a day? Don’t cram two sessions into one. Push the rest of the week back a day and keep the order of the workouts the same.
+
 ## How to progress on any 4 day workout split
 
 The template matters less than steady progress. Pick one and run it for at least six to eight weeks before judging it.
@@ -174,6 +196,10 @@ Plan for 45 to 75 minutes including warm-up. If sessions regularly run longer, t
 ### Can I do cardio on a 4 day split?
 
 Yes. Add easy cardio on rest days or after lifting, and keep hard interval work away from the day before a heavy lower-body session.
+
+### Is a 4 day split enough to build muscle?
+
+Yes. Four sessions a week trains every major muscle about twice, which is plenty for steady muscle growth as long as you add weight or reps over time, eat enough protein and sleep well. The body-part template puts a little more volume on each muscle if size is your main goal.
 
 ### Can I train on consecutive days?
 

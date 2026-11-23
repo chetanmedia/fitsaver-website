@@ -64,7 +64,7 @@ Because every muscle is trained three times a week, you get plenty of practice o
 
 ## 4-day workout split: upper/lower
 
-**Best for:** beginners ready for more, and intermediate lifters who want a balance of results and free time. You alternate upper body and lower body days, which trains every muscle twice a week with rest days in between.
+**Best for:** beginners ready for more, and intermediate lifters who want a balance of results and free time. You alternate upper body and lower body days, which trains every muscle twice a week with rest days in between. For full routine cards and two other ways to set up four days (body-part and full body A/B), see our [4 day workout split templates](/blog/4-day-workout-split-3-proven-templates-for-every-goal).
 
 - **Monday:** Upper (strength focus)
 - **Tuesday:** Lower (strength focus)

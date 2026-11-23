@@ -1,11 +1,11 @@
 ---
-title: "TikTok Workout Ideas: 20 TikTok Exercises and Routines You’ll Actually Do"
+title: "20 TikTok Workout Ideas and Routines (Sorted by Goal)"
 slug: "tiktok-workout-ideas"
 date: "2026-10-28T00:00:00.000Z"
-description: "Short, high-energy clips on TikTok have changed how people discover workouts. This guide gathers practical tiktok workout ideas and TikTok exercises, and…"
+description: "20 TikTok workout ideas and exercises sorted by goal, plus sample routines and a 4-week plan that turns the TikTok workouts you save into real sessions."
 image: "https://framerusercontent.com/images/ZcujzjAwbI7q61ygmSCXhaAdk.jpg"
 imageAlt: "TikTok Workout Ideas: 20 TikTok Exercises and Routines You’ll Actually Do"
-source: "framer"
+source: "site"
 ---
 Short, high-energy clips on TikTok have changed how people discover workouts. This guide gathers practical **tiktok workout ideas** and TikTok exercises, and shows how those 15- to 60-second clips can become full, structured routines that fit into a busy week. It also explains how the Fitsaver app turns a saved TikTok, Instagram, YouTube or Facebook workout video into a routine you can follow with rest timers, so those saved videos actually get used.
 
@@ -89,6 +89,8 @@ A **TikTok workout challenge** is usually one simple task repeated every day for
 - **Wall sit challenge:** hold a wall sit and add 10 seconds each day. Keep your knees at about 90 degrees and your back flat on the wall.
 
 Challenges are fun because they are simple and daily. The risk is training the same muscles every day with no rest. Treat a challenge as one part of your week, keep two or three strength sessions around it, and take a day off when soreness lingers.
+
+<div data-app-cta></div>
 
 ## Sample Workouts Users Can Save From TikTok Clips
 
