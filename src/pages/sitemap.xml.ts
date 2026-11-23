@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import { getPosts } from "../lib/posts";
 import { SITE } from "../lib/site";
 
-const STATIC = ["/", "/blog", "/contact", "/privay-policy", "/privay-policy-2", "/delete-account", "/tools", "/tools/workout-generator", "/tools/one-rep-max-calculator"];
+const STATIC = ["/", "/blog", "/contact", "/privay-policy", "/privay-policy-2", "/delete-account", "/tools", "/tools/workout-generator", "/tools/workout-split-builder", "/tools/one-rep-max-calculator"];
 
 export const GET: APIRoute = async () => {
   const posts = await getPosts();

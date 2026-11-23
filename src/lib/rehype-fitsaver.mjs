@@ -34,6 +34,17 @@ function appCta(campaign) {
   };
 }
 
+/** Compact app strip after the intro. Shown only where the sticky sidebar card is hidden (phones, tablets). */
+function appStrip(campaign) {
+  return {
+    type: "raw",
+    value: `<aside class="app-strip" aria-label="Get the Fitsaver app">
+  <p class="app-strip__copy"><b>Saw a workout like this on Instagram or TikTok?</b> Share it to Fitsaver and it becomes a routine with sets, reps and rest timers.</p>
+  ${storeBadgesHtml({ campaign: `${campaign}-top`, size: "sm" })}
+</aside>`,
+  };
+}
+
 function youtube(id) {
   return {
     type: "raw",
@@ -56,6 +67,11 @@ export function rehypeFitsaver() {
   return (tree, file) => {
     const slug = file?.data?.astro?.frontmatter?.slug || "blog";
     let lastH2 = "";
+
+    // Experiment (from 23 Nov 2026): app strip after the first real paragraph, mobile only.
+    const top = tree.children || [];
+    const first = top.findIndex((n) => n.type === "element" && n.tagName === "p" && text(n).trim().length > 80);
+    if (first !== -1 && first < 6) top.splice(first + 1, 0, appStrip(slug));
 
     const walk = (parent) => {
       const kids = parent.children || [];

@@ -105,9 +105,15 @@
 .side-cta__body { margin: 0.6rem 0 1.2rem; color: var(--smoke); font-size: 0.95rem; }
 .side-cta .stores { flex-direction: column; }
 .side-cta .store { width: 100%; }
+.app-strip { display: none; }
 @media (max-width: 1000px) {
   .post__layout { grid-template-columns: 1fr; }
   .post__aside { display: none; }
+  .app-strip { display: grid; gap: 0.9rem; margin: 1.6rem 0 2rem; padding: 1.1rem 1.2rem; border-radius: var(--radius-m); background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
+  .app-strip__copy { margin: 0; font-size: 0.98rem; line-height: 1.45; color: var(--smoke); }
+  .app-strip__copy b { color: var(--chalk); }
+  .app-strip .stores { margin: 0; }
+  .app-strip a.store { color: #fff; text-decoration: none; }
 }
 
 .more { padding-bottom: clamp(5rem, 10vw, 8rem); }

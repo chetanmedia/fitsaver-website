@@ -12,6 +12,12 @@ const tools = [
     art: "gen",
   },
   {
+    href: "/tools/workout-split-builder",
+    name: "Workout split builder",
+    text: "Pick how many days you can train and your goal. Get a weekly split with a full workout for every day.",
+    art: "split",
+  },
+  {
     href: "/tools/one-rep-max-calculator",
     name: "One rep max calculator",
     text: "Estimate your 1RM from any set, get working weights for every rep range, and see which plates to load.",
@@ -26,8 +32,8 @@ const jsonLd = {
 };
 ---
 <Base
-  title="Free Fitness Tools: Workout Generator and 1RM Calculator | Fitsaver"
-  description="Free fitness tools from Fitsaver. Build a workout for your goal and equipment in seconds, or calculate your one rep max and training weights."
+  title="Free Fitness Tools: Workout Generator, Split Builder, 1RM | Fitsaver"
+  description="Free fitness tools from Fitsaver. Build a workout or a full weekly split for your goal and equipment, or calculate your one rep max and training weights."
   path="/tools"
   jsonLd={jsonLd}
   scrubber={false}
@@ -38,9 +44,11 @@ const jsonLd = {
   </section>
   <section class="wrap tools-grid">
     {tools.map((t, i) => (
-      <a class="tool-tile tool-card" href={t.href} style={`--c:${i ? "#4FE3D1" : "#E2FF2E"}`}>
+      <a class="tool-tile tool-card" href={t.href} style={`--c:${["#E2FF2E", "#FF6BAE", "#4FE3D1"][i % 3]}`}>
         <div class={`tool-tile__art tool-tile__art--${t.art}`} aria-hidden="true">
-          {t.art === "gen" ? (
+          {t.art === "split" ? (
+            <ul>{["Mon  Upper", "Tue  Lower", "Thu  Upper", "Fri  Lower"].map((n) => <li><i></i>{n}</li>)}</ul>
+          ) : t.art === "gen" ? (
             <ul>{["Goblet squat", "Dumbbell bench press", "Romanian deadlift", "One-arm row"].map((n) => <li><i></i>{n}</li>)}</ul>
           ) : (
             <svg viewBox="0 0 300 120"><rect x="0" y="55" width="300" height="10" rx="5" fill="#3a3a3e"/><rect x="186" y="10" width="14" height="100" rx="3" fill="#E2FF2E"/><rect x="202" y="10" width="14" height="100" rx="3" fill="#E2FF2E"/><rect x="218" y="22" width="11" height="76" rx="3" fill="#FF6BAE"/><rect x="100" y="10" width="14" height="100" rx="3" fill="#E2FF2E"/><rect x="84" y="10" width="14" height="100" rx="3" fill="#E2FF2E"/><rect x="71" y="22" width="11" height="76" rx="3" fill="#FF6BAE"/></svg>

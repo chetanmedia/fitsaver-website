@@ -1,0 +1,234 @@
+---
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../lib/site";
+import { storeBadgesHtml } from "../../lib/store-badges.mjs";
+import { GOALS, EQUIP } from "../../lib/generator";
+import { buildSplit, weekHtml, SPLIT_DEFAULTS, DAY_COUNTS, SPLIT_TIMES } from "../../lib/split";
+import "../../styles/blog.css";
+import "../../styles/tools.css";
+
+const split = buildSplit(SPLIT_DEFAULTS);
+const PATH = "/tools/workout-split-builder";
+
+const faq = [
+  { q: "What is the best workout split?", a: "The best split is the one that fits how many days you can train. With 2 or 3 days, full body sessions hit every muscle often enough. With 4 days, an upper/lower split is the usual choice. With 5 or 6 days, push, pull and legs (or upper/lower plus push, pull, legs) spreads the work so each session stays a manageable length." },
+  { q: "How many days a week should I work out?", a: "Three to four days a week is enough for most people to build muscle and strength, as long as each session is hard and you add weight or reps over time. Pick the number you can keep doing for months, not the number that looks best on paper." },
+  { q: "Is a full body or split routine better for building muscle?", a: "Both work when the weekly sets per muscle are similar. Full body suits 2 or 3 days a week; splits suit 4 or more days, because each session can focus on fewer muscles. Training each muscle about twice a week is a good target either way." },
+  { q: "Can I change which days I train?", a: "Yes. Keep the order of the workouts and try to avoid two hard sessions for the same muscles on back-to-back days. If you miss a day, push the rest of the week back instead of doubling up." },
+  { q: "How long should I follow the same split?", a: "Run it for 6 to 8 weeks before judging it, adding a little weight or a rep each week. Swap single exercises you don't like with the workout generator, but keep the structure the same so you can see progress." },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Free Workout Split Builder",
+    url: `${SITE.url}${PATH}`,
+    applicationCategory: "HealthApplication",
+    operatingSystem: "Any",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    publisher: { "@type": "Organization", name: "Fitsaver", url: SITE.url },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE.url}/` },
+      { "@type": "ListItem", position: 2, name: "Free tools", item: `${SITE.url}/tools` },
+      { "@type": "ListItem", position: 3, name: "Workout split builder", item: `${SITE.url}${PATH}` },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  },
+];
+---
+<Base
+  title="Workout Split Builder: Free Weekly Gym Schedule | Fitsaver"
+  description="Free workout split builder. Pick how many days you can train, your goal and equipment, and get a full weekly gym schedule with a workout for every day."
+  path={PATH}
+  jsonLd={jsonLd}
+  scrubber={false}
+>
+  <section class="wrap tool-head">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/tools">Free tools</a><span aria-hidden="true">/</span><span>Workout split builder</span></nav>
+    <h1>Workout split builder</h1>
+    <p class="lede">Tell it how many days you can train. Get a weekly split with a complete workout for every training day.</p>
+  </section>
+
+  <section class="wrap split" data-split>
+    <form class="split__in tool-card" onsubmit="return false" aria-label="Split options">
+      <fieldset>
+        <legend>Days per week</legend>
+        <div class="seg seg--wide">
+          {DAY_COUNTS.map((d) => (
+            <label><input type="radio" name="days" value={d} checked={d === SPLIT_DEFAULTS.days} /><span>{d}</span></label>
+          ))}
+        </div>
+      </fieldset>
+      <fieldset class="chips">
+        <legend>Goal</legend>
+        {Object.entries(GOALS).map(([id, g]) => (
+          <label class="chip"><input type="radio" name="goal" value={id} checked={id === SPLIT_DEFAULTS.goal} /><span>{g.label}</span></label>
+        ))}
+      </fieldset>
+      <fieldset>
+        <legend>Time per session</legend>
+        <div class="seg">
+          {SPLIT_TIMES.map((t) => (
+            <label><input type="radio" name="time" value={t} checked={t === SPLIT_DEFAULTS.time} /><span>{t} min</span></label>
+          ))}
+        </div>
+      </fieldset>
+      <fieldset class="chips">
+        <legend>Equipment <small>bodyweight is always included</small></legend>
+        {EQUIP.map((e) => (
+          <label class="chip chip--check"><input type="checkbox" name="eq" value={e.id} checked={SPLIT_DEFAULTS.eq.includes(e.id)} /><span>{e.label}</span></label>
+        ))}
+      </fieldset>
+    </form>
+
+    <div class="split__out tool-card tool-card--glow" aria-live="polite">
+      <header class="split__head">
+        <h2 data-name>{split.name}</h2>
+        <ul class="routine-card__meta">
+          <li><b data-train>{split.training}</b> training days</li>
+          <li><b data-rest>{7 - split.training}</b> <span data-restw>{7 - split.training === 1 ? "rest day" : "rest days"}</span></li>
+        </ul>
+        <p class="routine-card__note" data-why>{split.why}</p>
+      </header>
+      <ol class="wk" data-week set:html={weekHtml(SPLIT_DEFAULTS, split)} />
+      <div class="gen__actions">
+        <button class="btn" type="button" data-copy>Copy my week</button>
+        <button class="btn btn--ghost" type="button" data-share>Copy link</button>
+        <span class="gen__toast" role="status" data-toast></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap tool-copy">
+    <aside class="app-cta">
+      <div>
+        <p class="app-cta__lead">Run your week in Fitsaver</p>
+        <p class="app-cta__title">Found a workout video for one of these days? Share it from Instagram, TikTok, YouTube or Facebook to Fitsaver and it builds the routine. Then drop it into that day in Programs and follow it with the rep counter and rest timer.</p>
+        <Fragment set:html={storeBadgesHtml({ campaign: "tool-split-builder", size: "md" })} />
+      </div>
+    </aside>
+
+    <div class="prose">
+      <h2>How the split builder picks your split</h2>
+      <p>The number of days you can train decides the structure. The goal decides the sets, reps and rest inside each workout.</p>
+      <ul>
+        <li><b>2 days:</b> full body twice, spread across the week.</li>
+        <li><b>3 days:</b> full body three times, or push, pull and legs when your goal is building muscle.</li>
+        <li><b>4 days:</b> upper/lower, twice. Read more in our guide to the <a href="/blog/4-day-workout-split-3-proven-templates-for-every-goal">4 day workout split</a>.</li>
+        <li><b>5 days:</b> upper and lower, then push, pull and legs. See the <a href="/blog/5-day-workout-split-for-muscle-gain">5 day split for muscle gain</a>.</li>
+        <li><b>6 days:</b> push, pull and legs, twice through, with one full rest day.</li>
+      </ul>
+      <p>Each training day is filled by the <a href="/tools/workout-generator">workout generator</a> using your goal, time and equipment. Tap "Full workout, sets and rest" on any day to see the complete routine, swap exercises you don't like, or copy it.</p>
+
+      <h2>How to make your split work</h2>
+      <ul>
+        <li><b>Pick the days you can keep.</b> A 3 day plan you follow for six months beats a 6 day plan you quit after two weeks.</li>
+        <li><b>Progress every week.</b> Add a little weight or one more rep to your main lifts. If you need training weights for heavy lifts, use the <a href="/tools/one-rep-max-calculator">one rep max calculator</a>.</li>
+        <li><b>Protect your rest days.</b> Muscles grow between sessions, not during them. A walk or light mobility work is fine.</li>
+        <li><b>Not sure how many days to train?</b> Our <a href="/blog/workout-split-guide-how-to-pick-the-right-3-4-5-or-6-day-split">workout split guide</a> compares 3, 4, 5 and 6 day splits, and <a href="/blog/full-body-workout-vs-split-which-is-better-for-you">full body vs split</a> explains the trade-offs.</li>
+      </ul>
+    </div>
+
+    <div class="faq-list">
+      <h2>Frequently asked questions</h2>
+      {faq.map((f) => (
+        <details class="faq-item">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { buildSplit, weekHtml, weekText, SPLIT_DEFAULTS, type SplitOptions, type Split } from "../../lib/split";
+  import type { Goal, Eq } from "../../lib/generator";
+
+  const root = document.querySelector<HTMLElement>("[data-split]")!;
+  const form = root.querySelector("form")!;
+  const $ = <T extends Element = HTMLElement>(s: string) => root.querySelector<T>(s)!;
+  let opts: SplitOptions = { ...SPLIT_DEFAULTS };
+  let split: Split;
+  let used = false;
+  let toastT = 0;
+
+  // A shared link reproduces the exact week.
+  const q = new URLSearchParams(location.search);
+  if (q.has("days")) {
+    opts = {
+      days: +(q.get("days") || SPLIT_DEFAULTS.days),
+      goal: (q.get("goal") as Goal) || SPLIT_DEFAULTS.goal,
+      time: +(q.get("time") || SPLIT_DEFAULTS.time),
+      eq: (q.get("eq") || "").split(",").filter(Boolean) as Eq[],
+    };
+    const set = (name: string, v: string) => { const el = form.querySelector<HTMLInputElement>(`input[name=${name}][value="${v}"]`); if (el) el.checked = true; };
+    set("days", String(opts.days)); set("goal", opts.goal); set("time", String(opts.time));
+    form.querySelectorAll<HTMLInputElement>("input[name=eq]").forEach((c) => (c.checked = opts.eq.includes(c.value as Eq)));
+  }
+
+  function read() {
+    const v = (n: string) => form.querySelector<HTMLInputElement>(`input[name=${n}]:checked`)!.value;
+    opts = {
+      days: +v("days"),
+      goal: v("goal") as Goal,
+      time: +v("time"),
+      eq: Array.from(form.querySelectorAll<HTMLInputElement>("input[name=eq]:checked")).map((c) => c.value as Eq),
+    };
+  }
+
+  function render() {
+    split = buildSplit(opts);
+    $("[data-name]").textContent = split.name;
+    $("[data-train]").textContent = String(split.training);
+    $("[data-rest]").textContent = String(7 - split.training);
+    $("[data-restw]").textContent = 7 - split.training === 1 ? "rest day" : "rest days";
+    $("[data-why]").textContent = split.why;
+    $("[data-week]").innerHTML = weekHtml(opts, split);
+  }
+
+  function track(action: string) {
+    (window as any).plausible?.("tool_use", { props: { tool: "split-builder", action } });
+    (window as any).gtag?.("event", "tool_use", { tool: "split-builder", action });
+  }
+
+  function link() {
+    const p = new URLSearchParams({ days: String(opts.days), goal: opts.goal, time: String(opts.time), eq: opts.eq.join(",") });
+    return `${location.origin}${location.pathname}?${p}`;
+  }
+
+  function toast(msg: string) {
+    const t = $("[data-toast]");
+    t.textContent = msg;
+    t.classList.add("is-on");
+    clearTimeout(toastT);
+    toastT = window.setTimeout(() => t.classList.remove("is-on"), 2200);
+  }
+
+  async function copy(text: string, msg: string) {
+    try { await navigator.clipboard.writeText(text); toast(msg); }
+    catch { toast("Copying isn’t allowed here. Select the plan and copy it."); }
+  }
+
+  form.addEventListener("change", () => {
+    read();
+    render();
+    history.replaceState(null, "", link());
+    if (!used) { used = true; track("build"); }
+  });
+
+  $("[data-copy]").addEventListener("click", () => { copy(weekText(opts, split), "Week copied"); track("copy"); });
+  $("[data-share]").addEventListener("click", () => { copy(link(), "Link copied. It opens this exact week."); track("share"); });
+
+  read();
+  render();
+</script>
