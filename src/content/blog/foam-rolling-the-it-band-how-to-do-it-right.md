@@ -2,10 +2,10 @@
 title: "Foam Rolling the IT Band: How to Do It Right"
 slug: "foam-rolling-the-it-band-how-to-do-it-right"
 date: "2026-11-07T00:00:00.000Z"
-description: "Foam rolling the IT band is one of the most searched recovery moves in fitness, and also one of the most misunderstood. Plenty of people grit their teeth…"
+description: "Foam rolling the IT band, done right: what it can and can't do, a gentle step-by-step technique, how long to roll, and what to do instead for tight outer thighs."
 image: "https://framerusercontent.com/images/579PLudSrphM4WBilUhOOIPI70.jpg"
 imageAlt: "Foam Rolling the IT Band: How to Do It Right"
-source: "framer"
+source: "site"
 ---
 Foam rolling the IT band is one of the most searched recovery moves in fitness, and also one of the most misunderstood. Plenty of people grit their teeth through it after every run, hoping to “loosen” the outside of the thigh. The good news: you don’t need to suffer. This guide shows you how to foam roll the IT band the right way, which nearby muscles deserve more of your time, and a short routine you can use as a warm-up or a recovery session.
 

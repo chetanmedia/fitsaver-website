@@ -2,10 +2,10 @@
 title: "Ab Workout for Men: Gym and Home Versions"
 slug: "ab-workout-for-men-gym-and-home-versions"
 date: "2026-11-02T00:00:00.000Z"
-description: "A good ab workout for men doesn’t need two hundred crunches or a fancy machine. It needs a handful of moves that train the core the way it actually works…"
+description: "An ab workout for men with a gym version and a no-equipment home version: 6 moves, sets, reps and rest, plus how to progress so your core keeps getting stronger."
 image: "https://framerusercontent.com/images/vxWvl0KitU1rJoOqU5XA8jMOE0.jpg"
 imageAlt: "Ab Workout for Men: Gym and Home Versions"
-source: "framer"
+source: "site"
 ---
 A good **ab workout for men** doesn’t need two hundred crunches or a fancy machine. It needs a handful of moves that train the core the way it actually works: curling, lifting the legs, bracing and resisting rotation. This guide gives you two complete versions of the same plan, one for the gym and one for home, plus the sets, reps and rest to run each one, how often to train abs, and how to keep the routine on track when you mostly learn workouts from reels.
 

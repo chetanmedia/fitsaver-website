@@ -2,10 +2,10 @@
 title: "Chest and Triceps Workout"
 slug: "chest-and-triceps-workout"
 date: "2026-11-11T00:00:00.000Z"
-description: "A good triceps and chest workout pairs two muscle groups that already work as a team. Every time you press a bar, push the floor away or lock out a dip, your…"
+description: "A chest and triceps workout for the gym: the best pressing and isolation moves, sets and reps, exercise order and rest times, plus a home version with dumbbells."
 image: "https://framerusercontent.com/images/AVjhdcihzUPBjmFSQClHZhDdgNE.jpg"
 imageAlt: "Chest and Triceps Workout"
-source: "framer"
+source: "site"
 ---
 A good **triceps and chest workout** pairs two muscle groups that already work as a team. Every time you press a bar, push the floor away or lock out a dip, your chest drives the movement and your triceps finish it. Training them on the same day lets you load the big presses while you’re fresh, then use the triceps work to wrap up the session without stealing recovery from another day. This guide gives you the exercises that matter, a full routine card with sets, reps and rest, a home version, and simple rules for progressing week to week.
 

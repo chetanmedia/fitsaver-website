@@ -2,10 +2,10 @@
 title: "Lower Ab Workout: The Best Low Ab Exercises"
 slug: "lower-ab-workout-the-best-low-ab-exercises"
 date: "2026-10-31T00:00:00.000Z"
-description: "The best low ab workout doesn’t need fancy equipment or a hundred reps of anything. It needs a handful of moves that curl your pelvis up toward your ribs…"
+description: "A lower ab workout with the 7 best low ab exercises, how to do them without your hip flexors taking over, and a simple routine with sets, reps and rest."
 image: "https://framerusercontent.com/images/yDCnjGRUvr1RfDXXxGGlt1XwLpc.jpg"
 imageAlt: "Lower Ab Workout: The Best Low Ab Exercises"
-source: "framer"
+source: "site"
 ---
 The best low ab workout doesn’t need fancy equipment or a hundred reps of anything. It needs a handful of moves that curl your pelvis up toward your ribs, done slowly enough that your abs do the work instead of your hip flexors. This guide covers what “lower abs” really means, the seven best lower ab exercises from easiest to hardest, a ready-to-follow lower ab workout routine card, and how to turn the ab workout lower-body reels you’ve saved into a plan you’ll actually repeat.
 

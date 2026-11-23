@@ -2,10 +2,10 @@
 title: "Hotel Gym Workout Plan: Make Small Gyms Work"
 slug: "hotel-gym-workout-plan-make-small-gyms-work"
 date: "2026-11-12T00:00:00.000Z"
-description: "A hotel gym workout rarely looks like the session you had planned. You get two treadmills, a dumbbell rack that tops out at 50 pounds, an adjustable bench if…"
+description: "A hotel gym workout plan for small gyms with light dumbbells, a bench and a treadmill: full-body sessions, sets and reps, and swaps for any equipment you find."
 image: "https://framerusercontent.com/images/27PiDFfSrHboVWwjIpXAkPwYK3A.jpg"
 imageAlt: "Hotel Gym Workout Plan: Make Small Gyms Work"
-source: "framer"
+source: "site"
 ---
 A hotel gym workout rarely looks like the session you had planned. You get two treadmills, a dumbbell rack that tops out at 50 pounds, an adjustable bench if you’re lucky, and maybe a cable machine with a sticky pin. The good news: that’s enough. With the right hotel gym workout plan, a small room can deliver a full-body session that keeps your strength and your routine intact until you’re home. This guide shows you how to size up the gym in two minutes, which exercises to swap in, and a ready-to-run routine that takes 35 to 45 minutes.
 

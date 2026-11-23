@@ -2,10 +2,10 @@
 title: "Upper Ab Workout: 6 Moves That Work"
 slug: "upper-ab-workout-6-moves-that-work"
 date: "2026-10-29T00:00:00.000Z"
-description: "An upper ab workout is built around one movement: curling your rib cage down toward your pelvis. That’s the job of the top portion of your rectus abdominis…"
+description: "An upper ab workout with 6 moves that work the top of your six-pack: how to do each one, sets, reps and rest, and how to make it harder as you get stronger."
 image: "https://framerusercontent.com/images/qATJEfvTxpUn9pwSKKD7XjLH0.jpg"
 imageAlt: "Upper Ab Workout: 6 Moves That Work"
-source: "framer"
+source: "site"
 ---
 An upper ab workout is built around one movement: curling your rib cage down toward your pelvis. That’s the job of the top portion of your rectus abdominis, the long “six-pack” muscle that runs down the front of your torso. You can’t switch off the lower part while you train the top, but you can choose exercises that put most of the work up there. This guide covers six moves that do exactly that, how to do each one well, and a simple routine card you can run two or three times a week.
 

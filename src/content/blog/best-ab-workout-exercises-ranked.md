@@ -2,10 +2,10 @@
 title: "Best Ab Workout Exercises, Ranked"
 slug: "best-ab-workout-exercises-ranked"
 date: "2026-10-28T00:00:00.000Z"
-description: "Most ab workouts fail for one of two reasons: the exercises are too easy to keep making progress, or the routine lives in a dozen saved reels you never open…"
+description: "The best ab workout exercises, ranked by how hard they work your core and how easy they are to progress, with a ready-to-follow ab routine for beginners and up."
 image: "https://framerusercontent.com/images/vxWvl0KitU1rJoOqU5XA8jMOE0.jpg"
 imageAlt: "Best Ab Workout Exercises, Ranked"
-source: "framer"
+source: "site"
 ---
 Most ab workouts fail for one of two reasons: the exercises are too easy to keep making progress, or the routine lives in a dozen saved reels you never open again. This list fixes the first problem. We ranked the best ab workout exercises by how hard they work your core, how easy they are to progress, and how well they fit a normal gym or home session. At the end you’ll find a 20-minute routine built from the top picks.
 
@@ -81,6 +81,8 @@ A decline bench adds range of motion and lets you hold a plate on your chest, so
 The classic oblique move closes out the list. It is popular in short workout reels because it needs nothing but floor space. Slow it down: each elbow-to-knee rep should take about two seconds, or it turns into a hip flexor drill.
 
 **Sets and reps:** 3 sets of 20 total reps.
+
+<div data-app-cta></div>
 
 ## Best ab exercises for the gym vs. at home
 

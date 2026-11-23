@@ -136,6 +136,8 @@ Note: If a reel is private or the link is restricted, users may need to ask the 
 - **Video Quality/Orientation Problems:** If the file doesn’t import correctly, download the video to the device first (when allowed) and upload directly into Fitsaver.
 - **Copyright Concerns:** Use imported content for personal practice. If sharing a full routine publicly, credit the creator and follow platform guidelines.
 
+<div data-app-cta></div>
+
 ## Creating a Weekly Yoga Plan Using Social Content
 
 One reel can seed an entire week. Here’s a sample plan for someone with 30–45 minutes, five days a week, combining reels, curated sequencing, and progressive load.

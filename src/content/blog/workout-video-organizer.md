@@ -168,6 +168,8 @@ Not all online videos show perfect technique. Use the organizer to flag question
 
 Saved videos may assume equipment that the user doesn’t own. Good organizers include easy substitutions and filters so routines adapt to what’s available — for instance, replacing barbell rows with single-arm dumbbell rows.
 
+<div data-app-cta></div>
+
 ## Privacy, Copyright, and Platform Rules
 
 Using social-media clips raises important legal and ethical questions. Here’s how an organized strategy keeps things safe and respectful:

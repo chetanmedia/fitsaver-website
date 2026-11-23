@@ -2,10 +2,10 @@
 title: "How to Save Instagram Reels (and Actually Use the Workout Ones)"
 slug: "how-to-save-instagram-reels-and-actually-use-the-workout-ones"
 date: "2026-11-01T00:00:00.000Z"
-description: "If you want to save Instagram reels, the app gives you a few good options: a private Saved folder, named collections, and in many cases a download to your…"
+description: "How to save Instagram reels to your Saved folder, collections or camera roll, and how to turn the workout reels you save into routines you actually follow."
 image: "https://framerusercontent.com/images/fhUUwMWDnlf0Nhq9DkOybLSm1y0.jpg"
 imageAlt: "How to Save Instagram Reels (and Actually Use the Workout Ones)"
-source: "framer"
+source: "site"
 ---
 If you want to save Instagram reels, the app gives you a few good options: a private Saved folder, named collections, and in many cases a download to your camera roll. The catch is that saving is the easy part. Most of us have hundreds of workout reels tucked away and still walk into the gym without a plan. This guide shows you exactly how to save Instagram reels, how to save Instagram reels to your camera roll, and then how to turn the workout ones into routines you will actually follow.
 

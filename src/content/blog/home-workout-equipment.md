@@ -152,6 +152,8 @@ Good workouts don’t need a lot of tools—thoughtful programming matters more.
 
 Week 1–2: 3 sets of 8–10 reps, Week 3: 4 sets of 5–8 reps heavier, Week 4: Deload with lighter loads and higher reps. Progress load gradually and prioritize technique.
 
+<div data-app-cta></div>
+
 ## Integrating Social Media Workouts Without Distraction
 
 Saved Instagram Reels and TikToks are a goldmine for new exercises, but they’re chaotic when someone tries to actually train from them. Apps like Fitsaver solve that problem by turning those short clips into structured, distraction-free routines. Rather than tapping through bookmarks and interrupting sets, users can:
