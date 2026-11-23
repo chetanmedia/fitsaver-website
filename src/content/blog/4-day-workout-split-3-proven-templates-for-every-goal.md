@@ -9,6 +9,8 @@ source: "site"
 ---
 A **4 day workout split** means lifting four days a week, with each session focused on different muscles or a different workout, so every major muscle gets trained about twice a week and you still get three rest days. It’s the sweet spot for most people who lift: enough sessions to train every muscle twice a week, and enough rest days to recover and keep a life outside the gym. The hard part is not finding a split. It’s picking one that fits your goal and then following it for more than two weeks. Below are three proven templates, one for strength, one for muscle size and one for general fitness, each with a day-by-day routine card you can copy.
 
+Want the plan built for you? The free [workout split builder](/tools/workout-split-builder) turns the number of days you can train into a full weekly schedule, with a workout for every training day.
+
 ## Why a 4 day workout split works for most lifters
 
 Four training days give you room to hit each major muscle group about twice a week while keeping three days free for recovery, work and everything else. That lines up well with public health guidance: the [CDC recommends](https://www.cdc.gov/physical-activity-basics/guidelines/adults.html) at least two days of muscle-strengthening activity each week for adults, and the [NHS suggests](https://www.nhs.uk/live-well/exercise/physical-activity-guidelines-for-adults-aged-19-to-64/) working all the major muscle groups (legs, hips, back, abdomen, chest, shoulders and arms) on at least two days, with activity spread across the week.

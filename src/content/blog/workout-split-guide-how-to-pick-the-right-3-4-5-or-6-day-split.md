@@ -5,9 +5,11 @@ date: "2026-10-30T00:00:00.000Z"
 description: "You saved the push day reel, the leg day reel and that upper body routine everyone shared last month. What you don’t have is a plan that tells you which one…"
 image: "https://framerusercontent.com/images/yF290cJ4cnswkfUHSBuzzhWUxg.jpg"
 imageAlt: "Workout Split Guide: How to Pick the Right 3, 4, 5 or 6-Day Split"
-source: "framer"
+source: "site"
 ---
 You saved the push day reel, the leg day reel and that upper body routine everyone shared last month. What you don’t have is a plan that tells you which one to do on Tuesday. That is the job of a **workout split**: a simple weekly structure that decides what you train on each day, so every session has a purpose and every muscle gets enough work and enough rest. This guide explains how a split works, how to pick the right 3, 4, 5 or 6-day option for your schedule, and gives you a routine card for each one.
+
+Want the plan built for you? The free [workout split builder](/tools/workout-split-builder) turns the number of days you can train into a full weekly schedule, with a workout for every training day.
 
 ## What is a workout split?
 

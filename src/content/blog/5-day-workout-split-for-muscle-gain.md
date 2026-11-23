@@ -9,6 +9,8 @@ source: "site"
 ---
 A 5 day workout split for muscle gain works best when it does one thing most popular plans skip: it trains every major muscle at least twice a week. Five sessions give you enough room to do that with real volume, without the marathon workouts of a 3-day plan or the burnout risk of training six days in a row. Below you’ll find the split we recommend (upper, lower, push, pull, legs), the full weekly schedule, a routine card for every day, the sets and reps that drive growth, and a simple way to keep adding weight week after week.
 
+Want the plan built for you? The free [workout split builder](/tools/workout-split-builder) turns the number of days you can train into a full weekly schedule, with a workout for every training day.
+
 ## What is a 5 day workout split?
 
 A 5 day workout split is a weekly plan with five lifting sessions and two rest days, where each session focuses on a different group of muscles. The “split” is how you divide your body across those days.

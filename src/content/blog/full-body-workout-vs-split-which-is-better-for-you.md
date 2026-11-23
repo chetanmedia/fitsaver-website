@@ -5,9 +5,11 @@ date: "2026-11-10T00:00:00.000Z"
 description: "Full body workout vs split: it’s one of the first questions people ask once they’ve saved a pile of workout videos and want to turn them into a real plan."
 image: "https://framerusercontent.com/images/wbb3HWci62Uehu8qoMmHPeU9qiM.jpg"
 imageAlt: "Full Body Workout vs Split: Which Is Better for You?"
-source: "framer"
+source: "site"
 ---
 Full body workout vs split: it’s one of the first questions people ask once they’ve saved a pile of workout videos and want to turn them into a real plan. A full body workout trains every major muscle group in each session. A split divides your body into parts, like upper and lower or push, pull and legs, and trains each part on its own day. Both build strength and muscle. The better choice is the one that fits your schedule, your experience and the number of days you can reliably show up. This guide compares the two, gives you a quick decision table, and finishes with ready-to-use routines for both styles.
+
+Want the plan built for you? The free [workout split builder](/tools/workout-split-builder) turns the number of days you can train into a full weekly schedule, with a workout for every training day.
 
 ## What is a full body workout?
 
