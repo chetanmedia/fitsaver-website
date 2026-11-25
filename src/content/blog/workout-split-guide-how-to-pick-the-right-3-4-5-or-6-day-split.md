@@ -2,7 +2,7 @@
 title: "Workout Split Guide: How to Pick the Right 3, 4, 5 or 6-Day Split"
 slug: "workout-split-guide-how-to-pick-the-right-3-4-5-or-6-day-split"
 date: "2026-10-30T00:00:00.000Z"
-description: "You saved the push day reel, the leg day reel and that upper body routine everyone shared last month. What you don’t have is a plan that tells you which one…"
+description: "How to pick a workout split: 3, 4, 5 and 6-day splits compared by goal, schedule and recovery, with a sample week for each so you can start this week."
 image: "https://framerusercontent.com/images/yF290cJ4cnswkfUHSBuzzhWUxg.jpg"
 imageAlt: "Workout Split Guide: How to Pick the Right 3, 4, 5 or 6-Day Split"
 source: "site"

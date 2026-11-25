@@ -137,7 +137,7 @@ Sleep is when most repair happens, and it is the first thing to suffer when trai
 
 ### Eat normally
 
-Rest days are not the day to slash food. Your muscles are rebuilding, so keep protein in every meal and eat enough overall. Big cuts on rest days often show up as flat, heavy workouts the next day.
+Rest days are not the day to slash food. Your muscles are rebuilding, so keep protein in every meal and eat enough overall. Rest days are also a good time to batch-cook a few of these [high protein meal prep ideas](/blog/high-protein-meal-prep-ideas-for-a-week-of-training). Big cuts on rest days often show up as flat, heavy workouts the next day.
 
 ### Hydrate and stay lightly active
 

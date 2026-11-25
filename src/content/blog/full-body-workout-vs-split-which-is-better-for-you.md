@@ -130,7 +130,7 @@ For most beginners, yes. Practicing squats, presses, rows and hinges two or thre
 
 ### Can you build muscle with full body workouts only?
 
-Yes. Muscle growth depends mainly on hard sets, gradual progression, food and sleep. A full body plan can deliver plenty of weekly volume as long as you push each set close to failure and add weight or reps over time.
+Yes. Muscle growth depends mainly on hard sets, gradual progression, food and sleep (these [high protein meal prep ideas](/blog/high-protein-meal-prep-ideas-for-a-week-of-training) cover the food part). A full body plan can deliver plenty of weekly volume as long as you push each set close to failure and add weight or reps over time.
 
 ### What is a full body workout split?
 

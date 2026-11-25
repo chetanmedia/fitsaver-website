@@ -266,7 +266,7 @@ The app sets timers, records the number of rounds Laura completes in a 12-minute
 - Schedule workouts like meetings. Treat them as non-negotiable, short appointments.
 - Stack movement with errands—walk after lunch, do calf raises while cooking.
 - Use micro-workouts: three 5–7 minute sessions across a day equal a solid 15–20 minute workout when combined.
-- Keep a “go-to” 12-minute routine for travel or particularly tight days.
+- Keep a “go-to” 12-minute routine for travel or particularly tight days. On the road, this [20-minute hotel room workout](/blog/hotel-room-workout-a-20-minute-no-equipment-routine) needs no equipment at all.
 
 ## When Short Workouts Aren’t Enough
 
