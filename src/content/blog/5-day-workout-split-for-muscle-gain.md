@@ -111,6 +111,8 @@ Each card lists sets, reps and rest. Warm up for 5 minutes, then do one or two l
 5. **Leg extension:** 3 sets of 12 to 15 reps, 60 seconds rest
 6. **Seated calf raise:** 3 sets of 15 reps, 45 seconds rest
 
+If glutes are a priority, swap the leg extension for a move from our [glute workout with the 8 best glute exercises](/blog/glute-workout-8-best-glute-exercises-for-gym-and-home).
+
 Want to run these with rest timers instead of a screenshot? Find a reel or video of a similar upper, lower, push, pull or leg day on Instagram, TikTok, YouTube or Facebook, tap Share and choose **Fitsaver** (or paste the link in the app). Fitsaver builds a step-by-step routine from the video with the exercises, sets, reps and rest. Then edit it to match the card above, log your weight on every set, and drop all five days into Programs so your week is already planned.
 
 ![Man holding a dumbbell mid-curl in a dimly lit gym](https://images.unsplash.com/photo-1641337221253-fdc7237f6b61?crop=entropy&cs=srgb&fm=jpg&ixlib=rb-4.1.0&w=1600&q=80&auto=format)

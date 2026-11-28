@@ -58,7 +58,7 @@ From standing, step one foot back and lower until both knees are bent to about 9
 
 Lie on your back with knees bent and feet flat. Press through your heels to lift your hips until your body forms a straight line from shoulders to knees, squeeze for two seconds, then lower slowly.
 
-- **Progression:** Do it on one leg, or rest a dumbbell across your hips.
+- **Progression:** Do it on one leg, or rest a dumbbell across your hips. For more moves that target the same muscles, see our [glute workout with the 8 best glute exercises](/blog/glute-workout-8-best-glute-exercises-for-gym-and-home).
 - **Why it’s quiet:** You’re lying down the whole time. This is one of the quietest strength moves there is.
 
 ### 4. Push-up (or incline push-up)
