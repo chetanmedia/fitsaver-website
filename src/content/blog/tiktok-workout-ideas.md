@@ -52,6 +52,8 @@ Here are practical **tiktok workout ideas** grouped by goal. Each idea includes 
 
 ### Quick HIIT & Cardio
 
+If you’re new to interval training, our [beginner HIIT workout](/blog/hiit-workout-for-beginners-a-20-minute-routine) is an easier place to start.
+
 - **30-Second Tabata Burner** — Equipment: none. Structure: 8 rounds, 20s work / 10s rest; exercises: burpees, mountain climbers, jump squats, high knees (rotate).
 - **EMOM Cardio Blast** — Equipment: jump rope optional. Structure: 10 minutes EMOM (minute 1: 40s jump rope, minute 2: 40s alternating lunges).
 - **Dance Cardio Mashup** — Equipment: none. Structure: 15–20 minutes choreography-based intervals, alternate high-intensity sections with 30s active rest.

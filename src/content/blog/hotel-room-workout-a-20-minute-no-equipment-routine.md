@@ -27,7 +27,7 @@ You don’t have to match your normal training volume while traveling. The goal 
 
 ### Keep it quiet
 
-Hotel floors and walls are thin, and nobody wants to be the guest doing jump squats at 6 a.m. Every move in this routine is a **no-jump** version. You can still raise the effort by slowing down the lowering phase, adding a pause at the bottom or squeezing in a few more reps per interval.
+Hotel floors and walls are thin, and nobody wants to be the guest doing jump squats at 6 a.m. Every move in this routine is a **no-jump** version. You can still raise the effort by slowing down the lowering phase, adding a pause at the bottom or squeezing in a few more reps per interval. Packed a resistance band? Our [resistance band workout](/blog/resistance-band-workout-a-full-body-routine-you-can-do-anywhere) adds load in the same small space.
 
 ![Woman in workout clothes standing by a bright window in a minimal hotel-style room, ready to start a no-equipment workout](https://framerusercontent.com/images/FbSl4e74OtSUNCknLbWNGRBoOvY.jpg)
 

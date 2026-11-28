@@ -85,7 +85,7 @@ Sit with the roller under the back of your thighs, hands behind you for support.
 - **Going as hard as possible.** Moderate pressure is enough. Bruising is a sign you overdid it.
 - **Rolling too fast.** Slow, controlled passes beat quick back-and-forth sweeps.
 - **Only rolling the IT band.** Give the TFL, glutes, quads and hamstrings their share.
-- **Using rolling instead of strength work.** Rolling can help you feel better, but strong hips and legs do the heavy lifting for knee comfort over time.
+- **Using rolling instead of strength work.** Rolling can help you feel better, but strong hips and legs do the heavy lifting for knee comfort over time. Pair it with our [hip mobility exercises for tight hips](/blog/hip-mobility-exercises-8-moves-for-tight-hips).
 
 ## When to foam roll your IT band
 

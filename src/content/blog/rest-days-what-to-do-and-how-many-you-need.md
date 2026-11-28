@@ -11,7 +11,7 @@ Rest days are where your training actually turns into progress. Lifting, running
 
 ## Why rest days matter
 
-Hard training is a controlled form of stress. A heavy leg session or an interval run creates small amounts of muscle damage, uses up stored energy and taxes your nervous system. None of that is a problem on its own. It becomes a problem when the next hard session arrives before you have recovered from the last one.
+Hard training is a controlled form of stress. A heavy leg session or an interval run creates small amounts of muscle damage, uses up stored energy and taxes your nervous system. None of that is a problem on its own. It becomes a problem when the next hard session arrives before you have recovered from the last one. Food is part of that recovery; our guide to [what to eat before a workout](/blog/what-to-eat-before-a-workout-and-how-long-to-wait) covers meal timing around training.
 
 As [UCLA Health explains](https://www.uclahealth.org/news/article/how-often-should-you-take-rest-day), muscles repair and strengthen during rest, and planned days off lower your risk of injury and support your mental health. Skip them for long enough and you tend to see the opposite: lingering soreness, stalled lifts, worse sleep and workouts that feel harder than they should.
 
@@ -61,7 +61,7 @@ A rest day does not mean lying on the couch, though that is allowed. There are t
 
 - **Walking:** 20 to 45 minutes at a pace where you could hold a full conversation. The easiest win on any rest day.
 - **Easy cycling or swimming:** Low impact and gentle on joints. Keep it relaxed rather than turning it into a workout.
-- **Mobility and stretching:** Hips, hamstrings, upper back and shoulders are the usual tight spots. Ten to fifteen minutes is enough.
+- **Mobility and stretching:** Hips, hamstrings, upper back and shoulders are the usual tight spots. Ten to fifteen minutes is enough, and our [hip mobility exercises](/blog/hip-mobility-exercises-8-moves-for-tight-hips) make an easy 12-minute routine.
 - **Foam rolling:** Slow passes over quads, calves, glutes and upper back. Our guide to [foam rolling the IT band](/blog/foam-rolling-the-it-band-how-to-do-it-right) covers technique for the outer thigh.
 - **Gentle yoga:** A slow flow or a beginner class, not a hot power session.
 

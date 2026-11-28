@@ -38,7 +38,7 @@ Adjustable dumbbells offer multiple weight options in a single footprint, perfec
 
 ### 2. Resistance Bands
 
-*Resistance bands* are lightweight, portable, and great for warm-ups, accessory work, and full-body routines. They come in looped bands (mini bands) and long tube bands with handles—both are useful. Bands are indispensable for people who travel or want a low-impact strength option.
+*Resistance bands* are lightweight, portable, and great for warm-ups, accessory work, and full-body routines. They come in looped bands (mini bands) and long tube bands with handles—both are useful. Bands are indispensable for people who travel or want a low-impact strength option. To put a set to work, try our [full-body resistance band workout](/blog/resistance-band-workout-a-full-body-routine-you-can-do-anywhere).
 
 ### 3. Yoga/Exercise Mat
 
@@ -46,7 +46,7 @@ A good mat provides grip, joint cushioning, and defines a training zone. It’s 
 
 ### 4. Pull-Up Bar
 
-Doorway or wall-mounted pull-up bars allow users to train upper-body pulling strength and core stability. If ceiling height is tight, consider portable foldable options or resistance-band-assisted pull-up setups.
+Doorway or wall-mounted pull-up bars allow users to train upper-body pulling strength and core stability. If ceiling height is tight, consider portable foldable options or resistance-band-assisted pull-up setups. For exercises to use it with, see our [back workout with gym and home versions](/blog/back-workout-7-best-back-exercises-for-gym-and-home).
 
 ### 5. Jump Rope
 

@@ -13,7 +13,7 @@ A good **triceps and chest workout** pairs two muscle groups that already work a
 
 Chest and triceps are both “push” muscles. Your pecs move your upper arm across and in front of your body, and your triceps straighten your elbow. Almost every chest press asks both to work at once, so pairing them is efficient: by the time you reach your isolation exercises, your triceps are already warm and partly fatigued, which means you need less volume and lighter weights to finish them off.
 
-It also keeps your week tidy. If you follow a push, pull, legs plan or an upper and lower split, a chest and triceps day slots in cleanly. Not sure which structure suits you? Our [workout split guide](/blog/workout-split-guide-how-to-pick-the-right-3-4-5-or-6-day-split) walks through 3, 4, 5 and 6-day options, and the [4 day workout split templates](/blog/4-day-workout-split-3-proven-templates-for-every-goal) show where a push day fits.
+It also keeps your week tidy. If you follow a push, pull, legs plan or an upper and lower split, a chest and triceps day slots in cleanly. Not sure which structure suits you? Our [workout split guide](/blog/workout-split-guide-how-to-pick-the-right-3-4-5-or-6-day-split) walks through 3, 4, 5 and 6-day options, and the [4 day workout split templates](/blog/4-day-workout-split-3-proven-templates-for-every-goal) show where a push day fits. For the matching pull day, our [back workout](/blog/back-workout-7-best-back-exercises-for-gym-and-home) covers every major back muscle.
 
 ### How often to train them
 

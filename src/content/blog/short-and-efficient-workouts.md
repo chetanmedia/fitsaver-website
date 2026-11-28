@@ -29,7 +29,7 @@ Different formats match different goals, equipment access, and personal preferen
 
 ### HIIT (High-Intensity Interval Training)
 
-Short bursts of near-maximal effort followed by rest or low-intensity recovery. Best for conditioning and fat loss.
+Short bursts of near-maximal effort followed by rest or low-intensity recovery. Best for conditioning and fat loss. New to intervals? Start with our [HIIT workout for beginners](/blog/hiit-workout-for-beginners-a-20-minute-routine).
 
 - Typical duration: 10–25 minutes
 - Example: 30s all-out sprints / 60s walk x 10

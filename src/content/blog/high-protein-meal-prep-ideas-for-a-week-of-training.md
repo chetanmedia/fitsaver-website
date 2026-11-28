@@ -9,7 +9,7 @@ source: "site"
 ---
 The easiest high protein meal prep is simple: cook two or three proteins in bulk (chicken, ground turkey, eggs, salmon, tofu or lentils), pair them with a base like rice or potatoes, and change the sauce so the week doesn’t get boring. Below are 12 easy meals that reheat well, plus a prep-day plan to make them in about two hours.
 
-If you train three to five days a week, the meals between sessions matter almost as much as the sets you do. The problem is rarely knowledge. It’s Tuesday night, you’re hungry, and nothing is ready. These **high protein meal prep ideas** fix that with one or two cooking sessions, a short list of proteins you rotate, and simple containers you can grab on the way out the door. Below you’ll find a weekly system, easy high protein meal prep recipes for breakfast, lunch and dinner, a sample prep-day schedule, and a training plan to pair it with.
+If you train three to five days a week, the meals between sessions matter almost as much as the sets you do. The problem is rarely knowledge. It’s Tuesday night, you’re hungry, and nothing is ready. These **high protein meal prep ideas** fix that with one or two cooking sessions, a short list of proteins you rotate, and simple containers you can grab on the way out the door. Below you’ll find a weekly system, easy high protein meal prep recipes for breakfast, lunch and dinner, a sample prep-day schedule, and a training plan to pair it with. For timing the meal right before you train, see [what to eat before a workout](/blog/what-to-eat-before-a-workout-and-how-long-to-wait).
 
 ## Why high protein meal prep works for people who train
 
